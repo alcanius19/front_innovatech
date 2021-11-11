@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+<<<<<<< HEAD
 In the project directory, you can run:
 
 ### `npm start`
@@ -68,3 +69,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+Felipe Martinez ,Ingeniero de software , mi objetivo principal es cumplir con todos los retos propuestos en  Mision Tic.
+
+Gustavo Enrique Ramirez Aguilar: Tengo 30 años de edad, padre de una niña de 4 meses, en el momento llevo 2 años viviendo en la Ciudad de Medellin, paramedico de profesion hace mas de 6 años y estudiante de 7 semestre de Ingenieria de Telecomunicaciones de la universidad UNAD, me gusta el futbol y me gusta mucho el mundo de la programacion.
+>>>>>>> 2fa99043c65802a6ce653acc86703ec02383b4b1
