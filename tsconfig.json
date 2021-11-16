@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "./build/",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "strict": true,
+    "sourceMap": true,
+    "module": "esnext",
+    "target": "esnext",
+    // "module": "es6",
+    // "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "noEmit": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    // "lib": ["es6", "dom"]
+    "esModuleInterop": true,
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "include": ["src"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
