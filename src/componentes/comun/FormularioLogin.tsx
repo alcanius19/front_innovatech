@@ -1,0 +1,225 @@
+import React, { useState, useEffect, useRef } from "react";
+import { Form, Button, Spinner } from "react-bootstrap";
+import Modal, { RenderModalBackdropProps } from "react-overlays/Modal";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { v4 } from "uuid";
+import useAutenticarContexto, {
+  IAUsuario,
+  EAutenticacion,
+  IEstadoAutenticacion,
+} from "../ganchos/useAutenticar";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+YupPassword(yup);
+
+export interface IPropsFormulario {
+  botones: { [index: string]: IPropsBotones };
+  cerrarForm: () => void;
+  mensaje: string;
+  textoOpcion: string;
+}
+
+export interface IPropsBotones {
+  nombre: string;
+  click: (ausuario: IAUsuario) => void;
+  claseBoton: string;
+}
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email("Ingresa un correo valido.")
+    .required("Debes ingresar un correo."),
+  contrasena: yup
+    .string()
+    .password()
+    .required("Debes ingresar una contraseña.")
+    .minLowercase(
+      2,
+      "La contraseña debe contener al menos 2 caracteres en minúscula."
+    )
+    .minUppercase(
+      1,
+      "La contraseña debe contener al menos 1 caracter en mayúscula."
+    )
+    .minNumbers(2, "La contraseña debe contener al menos 2 números.")
+    .minSymbols(1, "La contraseña debe contener al menos 1 símbolo.")
+    .min(6, "La contraseña mínimo debe contener 6 caracteres.")
+    .max(14, "La contraseña debe contener máximo 14 caracteres."),
+});
+const Backdrop = styled("div")`
+  position: absolute;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #0edc8d;
+  opacity: 0.3;
+`;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const OverlayCargando = styled(Modal)`
+  position: absolute;
+  z-index: 2020;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  opacity: 1;
+`;
+
+const renderBackdrop = (props: RenderModalBackdropProps) => (
+  <Backdrop {...props} />
+);
+const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
+  const [cargando, setCargando] = useState(false);
+  const contenedor = useRef(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { estadoAutenticacion, ingresar } = useAutenticarContexto();
+  const {
+    register,
+    trigger,
+    formState: { errors },
+  } = useForm<IAUsuario>({
+    resolver: yupResolver(schema),
+  });
+
+  const navegar = useNavigate();
+  const [ausuario, setAusuario] = useState({} as IAUsuario);
+
+  const manejarLogin = async (ausuario: IAUsuario) => {
+    const result = await trigger();
+    if (result) {
+      const _ingresar = typeof ingresar === "function" ? ingresar() : null;
+      if (_ingresar) {
+        setCargando(true);
+        setTimeout(() => {
+          _ingresar(ausuario).then(
+            (estadoAutenticacion: void | IEstadoAutenticacion) => {
+              if (estadoAutenticacion?.autenticado) {
+                formulario.cerrarForm();
+                navegar("/proyectos");
+              } else {
+                switch (estadoAutenticacion?.estado) {
+                  case EAutenticacion.NOAUTENTICADO:
+                    console.log("Revise su usuario y su contraseña.");
+                    break;
+                  case EAutenticacion.SINDATOS:
+                    console.log("Datos incorrectos.");
+                    break;
+                  case EAutenticacion.ERROR:
+                    console.log("Error en el login");
+                    break;
+                }
+              }
+              setCargando(false);
+            }
+          );
+        }, 2000);
+      }
+    }
+  };
+
+  const [email, setEmail] = useState("");
+  const [contrasena, setcontrasena] = useState("");
+
+  useEffect(() => {
+    if (email !== "") {
+      setAusuario({ ...ausuario, email: email });
+    }
+  }, [email]);
+
+  useEffect(() => {
+    if (contrasena !== "") {
+      setAusuario({ ...ausuario, contrasena: contrasena });
+    }
+  }, [contrasena]);
+
+  return (
+    <Form className="login" ref={contenedor}>
+      <Form.Group className="mb-3" controlId="formLogin">
+        <Form.Label>{formulario.mensaje}</Form.Label>
+        <div className="clearfix"></div>
+        <Form.Text className="text-muted text-dark">
+          {formulario.textoOpcion}
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="ausuario-email">
+        <Form.Label>Correo:</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder={"Ingrese el correo..."}
+          value={email}
+          readOnly={cargando}
+          {...register("email")}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {errors.email?.message ? (
+          <Form.Text className="text-danger">{errors.email?.message}</Form.Text>
+        ) : null}
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="ausuario-contrasena">
+        <Form.Label>Contraseña:</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder={"Ingrese la contraseña..."}
+          value={contrasena}
+          readOnly={cargando}
+          {...register("contrasena")}
+          onChange={(e) => setcontrasena(e.target.value)}
+        />
+        {errors.contrasena?.message ? (
+          <Form.Text className="text-danger">
+            {errors.contrasena?.message}
+          </Form.Text>
+        ) : null}
+      </Form.Group>
+      {/* {botones &&
+        Object.keys(botones).map((llave: string) => {
+          const boton: IPropsBotones = botones[llave];
+          return (
+            <Button
+              variant={boton.claseBoton}
+              key={v4()}
+              onClick={() => boton.click(ausuario)}
+            >
+              {boton.nombre}
+            </Button>
+          );
+        })} */}
+      <div className={"d-flex justify-content-center"}>
+        <Button
+          variant={"outline-success"}
+          key={v4()}
+          onClick={() => manejarLogin(ausuario)}
+        >
+          Ingresar
+        </Button>
+      </div>
+      <OverlayCargando
+        show={cargando}
+        onHide={() => setCargando(false)}
+        renderBackdrop={renderBackdrop}
+        aria-labelledby="modal-label"
+        className="overlayLogin"
+        container={contenedor.current}
+      >
+        <Spinner animation="grow" variant="dark" role="status">
+          <span className="visually-hidden">Cargando...</span>
+        </Spinner>
+      </OverlayCargando>
+    </Form>
+  );
+};
+FormularioLogin.propTypes = {
+  formulario: PropTypes.object.isRequired,
+};
+
+export default FormularioLogin;
