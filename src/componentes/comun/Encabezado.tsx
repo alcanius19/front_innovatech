@@ -164,19 +164,19 @@ const Encabezado = () => {
                           Inicio
                         </NavLink>
                       </li>
-                      {estadoAutenticacion.autenticado ? (
-                        <>
-                          <li className="nav-item">
-                            <NavLink to="/estudiantes">Estudiantes</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink to="/avances">Avances</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink to="/proyectos">Proyectos</NavLink>
-                          </li>
-                        </>
-                      ) : null}
+                      {/* {estadoAutenticacion.autenticado ? ( */}
+                      <>
+                        <li className="nav-item">
+                          <NavLink to="/estudiantes">Estudiantes</NavLink>
+                        </li>
+                        <li className="nav-item">
+                          <NavLink to="/avances">Avances</NavLink>
+                        </li>
+                        <li className="nav-item">
+                          <NavLink to="/proyectos">Proyectos</NavLink>
+                        </li>
+                      </>
+                      {/* ) : null} */}
                       {/* <li className="nav-item">
                         <a
                           className="page-scroll dd-menu collapsed"

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 //gancgos
@@ -31,11 +32,12 @@ function RequerirAutenticacion({
   redirectTo: string;
 }) {
   const { estadoAutenticacion } = useAutenticarContexto();
-  return estadoAutenticacion.autenticado ? (
-    children
-  ) : (
-    <Navigate to={redirectTo} />
-  );
+  // return estadoAutenticacion.autenticado ? (
+  //   children
+  // ) : (
+  //   <Navigate to={redirectTo} />
+  // );
+  return children;
 }
 
 function App() {

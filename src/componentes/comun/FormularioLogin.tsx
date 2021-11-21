@@ -80,6 +80,7 @@ const renderBackdrop = (props: RenderModalBackdropProps) => (
 );
 const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
   const [cargando, setCargando] = useState(false);
+  const [infoLogin, setInfoLogin] = useState("");
   const contenedor = useRef(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { estadoAutenticacion, ingresar } = useAutenticarContexto();
@@ -109,13 +110,16 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
               } else {
                 switch (estadoAutenticacion?.estado) {
                   case EAutenticacion.NOAUTENTICADO:
-                    console.log("Revise su usuario y su contraseña.");
+                    setInfoLogin("Revise su usuario y su contraseña.");
                     break;
                   case EAutenticacion.SINDATOS:
-                    console.log("Datos incorrectos.");
+                    setInfoLogin("Datos incorrectos.");
                     break;
                   case EAutenticacion.ERROR:
-                    console.log("Error en el login");
+                    setInfoLogin("Error en el login");
+                    break;
+                  default:
+                    setInfoLogin("");
                     break;
                 }
               }
@@ -142,14 +146,26 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
     }
   }, [contrasena]);
 
+  useEffect(() => {
+    if (infoLogin !== "") {
+      const id: NodeJS.Timeout = setTimeout(() => {
+        setInfoLogin("");
+      }, 4000);
+      return () => clearTimeout(id);
+    }
+  }, [infoLogin]);
   return (
     <Form className="login" ref={contenedor}>
-      <Form.Group className="mb-3" controlId="formLogin">
+      <Form.Group className="mb-1" controlId="formLogin">
         <Form.Label>{formulario.mensaje}</Form.Label>
-        <div className="clearfix"></div>
-        <Form.Text className="text-muted text-dark">
-          {formulario.textoOpcion}
-        </Form.Text>
+        {formulario?.textoOpcion && (
+          <>
+            <div className="clearfix"></div>
+            <Form.Text className="text-muted text-dark">
+              {formulario.textoOpcion}
+            </Form.Text>
+          </>
+        )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="ausuario-email">
         <Form.Label>Correo:</Form.Label>
@@ -181,6 +197,11 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
           </Form.Text>
         ) : null}
       </Form.Group>
+      {infoLogin && (
+        <div className={"d-flex justify-content-center mb-2"}>
+          <Form.Text className="text-danger">{infoLogin}</Form.Text>
+        </div>
+      )}
       {/* {botones &&
         Object.keys(botones).map((llave: string) => {
           const boton: IPropsBotones = botones[llave];
@@ -194,7 +215,7 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
             </Button>
           );
         })} */}
-      <div className={"d-flex justify-content-center"}>
+      <div className={"d-flex justify-content-center mt-3"}>
         <Button
           variant={"outline-success"}
           key={v4()}
