@@ -1120,7 +1120,7 @@ ol {
 .pagination {
   text-align: left;
   margin: 65px 0 0 0;
-  display: block;
+  /* display: block; */
   background-color: transparent;
 }
 

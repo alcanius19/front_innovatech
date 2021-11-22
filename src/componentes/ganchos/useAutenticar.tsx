@@ -4,16 +4,16 @@ import { obtenerDatosPost } from "./useExtraer";
 
 export interface IAUsuario {
   email: string;
-  contrasena: string;
+  password: string;
 }
 
 export interface IUsuario {
-  contrasena: string;
+  password: string;
   identificacion: string;
-  nombre: string;
+  nombre_completo: string;
   email: string;
-  rol: string;
   estado: string;
+  tipo_usuario: string;
   token: string;
 }
 
@@ -123,9 +123,9 @@ function useAutenticar(): IAutenticacion {
     ausuario: IAUsuario
   ) => Promise<IEstadoAutenticacion | void> = () => {
     return async (ausuario: IAUsuario) => {
-      const datos = (await obtenerDatosPost("api/login/validar", {
+      const datos = (await obtenerDatosPost("api/usuario/validar", {
         email: ausuario?.email || "",
-        contrasena: ausuario?.contrasena || "",
+        contrasena: ausuario?.password || "",
       })) as object[];
       const estadoAutenticacion: IEstadoAutenticacion = await validarUsuarioJWT(
         datos

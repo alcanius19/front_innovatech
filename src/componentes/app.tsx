@@ -11,7 +11,7 @@ import Pie from "./comun/Pie";
 //paginas
 import PaginaInicio from "./inicio/PaginaInicio";
 import PaginaAvances from "./avances/PaginaAvances";
-import PaginaEstudiantes from "./estudiantes/PaginaEstudiantes";
+import PaginaEstudiantes from "./usuario/PaginaEstudiantes";
 import PaginaProyectos from "./proyectos/PaginaProyectos";
 import PaginaAcercaDe from "./PaginaAcercaDe";
 import PaginaContacto from "./PaginaContacto";
