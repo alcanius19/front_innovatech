@@ -46,7 +46,7 @@ const Estudiantes = () => {
         id="titulo-estudiantes"
         className="container-fluid d-flex rounded-1 d-flex justify-content-center align-items-center p-1 mb-2"
       >
-        <h5>Administración de estudiantes</h5>
+        <h5>Administración de usuarios</h5>
       </div>
       <div id="opciones estudiante" className="container-fluid bg-light mb-2">
         {/* 0edc8d */}
