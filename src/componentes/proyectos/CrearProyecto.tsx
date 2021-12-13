@@ -20,7 +20,7 @@ function CrearProyecto() {
     { value: "terminado", label: "TERMINADO", disabled: true },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     console.log(typeof presupuesto);

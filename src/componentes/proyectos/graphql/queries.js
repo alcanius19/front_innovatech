@@ -27,6 +27,7 @@ export const PROYECTOS_USUARIO = gql`
       nombre_proyecto
       objetivo_general
       objetivo_especifico
+      presupuesto
       estado
       id_usuario {
         _id
@@ -52,6 +53,21 @@ export const PROYECTOS_ID = gql`
         tipo_usuario
         email
       }
+    }
+  }
+`;
+
+export const LISTAR_AVANCES = gql`
+  query {
+    listarAvances {
+      _id
+      id_proyecto {
+        _id
+        nombre_proyecto
+        objetivo_general
+      }
+      id_usuario
+      descripcion
     }
   }
 `;

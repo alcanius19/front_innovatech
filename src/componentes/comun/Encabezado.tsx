@@ -178,6 +178,18 @@ const Encabezado = () => {
                           </li>
                           <li className="nav-item">
                             <NavLink to="/proyectos">Proyectos</NavLink>
+                            <ul className="sub-menu collapse" id="submenu-1-4">
+                              <li className="nav-item">
+                                <NavLink to="/crear_proyecto">
+                                  crear Proyecto
+                                </NavLink>
+                              </li>
+                              <li className="nav-item">
+                                <NavLink to="/actualizar_fase">
+                                  Editar fase
+                                </NavLink>
+                              </li>
+                            </ul>
                           </li>
                         </>
                       ) : null}

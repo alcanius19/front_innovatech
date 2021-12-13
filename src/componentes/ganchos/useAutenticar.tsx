@@ -125,9 +125,9 @@ function useAutenticar(): IAutenticacion {
     useState<IEstadoAutenticacion>({
       autenticado: true,
       usuario: {
-        _id: "619acd25cc23cfe7650c7e39", //"619ace06cc23cfe7650c7e3c",
+        _id: "61714aeba25378969e152f5e", //"619ace06cc23cfe7650c7e3c",
         nombre_completo: "Temp_lider", // "Temp_admin"
-        tipo_usuario: "líder", // "administrador"
+        tipo_usuario: "lider", // "administrador"
       } as IUsuario,
       estado: EAutenticacion.AUTENTICADO,
       token: "",

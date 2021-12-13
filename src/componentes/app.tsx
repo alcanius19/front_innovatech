@@ -18,14 +18,17 @@ import PaginaInicio from "./inicio/PaginaInicio";
 import PaginaAvances from "./avances/PaginaAvances";
 import PaginaUsuarios from "./usuario/PaginaUsuarios";
 import PaginaProyectos from "./proyectos/PaginaProyectos";
+import CrearProyecto from "./proyectos/Formularios/CrearProyecto";
 import PaginaInscripciones from "./inscripciones/PaginaInscripciones";
 import PaginaAcercaDe from "./PaginaAcercaDe";
 import PaginaContacto from "./PaginaContacto";
 import PaginaNoEncontrada from "./PaginaNoEncontrada";
+import ActualizarFase from "./proyectos/Formularios/ActualizarFase";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+
 library.add(fab);
 library.add(fas);
 library.add(far);
@@ -38,6 +41,7 @@ const RequerirAutenticacion = ({
   redirectTo: string;
 }) => {
   const { estadoAutenticacion } = useAutenticarContexto();
+
   return estadoAutenticacion.autenticado ? (
     children
   ) : (
@@ -53,60 +57,33 @@ function App() {
           <AutenticancionProveedor>
             <Encabezado />
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <PaginaInicio />
-                    <PieInicio />
-                  </>
-                }
-              />
+              <Route path="/" element={<PaginaInicio />} />
               <Route
                 path="/usuarios"
                 element={
-                  <>
-                    <RequerirAutenticacion redirectTo="/">
-                      <PaginaUsuarios />
-                    </RequerirAutenticacion>
-                    <PieApp />
-                  </>
+                  <RequerirAutenticacion redirectTo="/">
+                    <PaginaUsuarios />
+                  </RequerirAutenticacion>
                 }
               />
               <Route
                 path="/proyectos"
                 element={
-                  <>
-                    <RequerirAutenticacion redirectTo="/">
-                      <PaginaProyectos />
-                    </RequerirAutenticacion>
-                    <PieApp />
-                  </>
+                  <RequerirAutenticacion redirectTo="/">
+                    <PaginaProyectos />
+                  </RequerirAutenticacion>
                 }
               />
               <Route
-                path="/inscripciones"
+                path="/crear_proyecto"
                 element={
-                  <>
-                    <RequerirAutenticacion redirectTo="/">
-                      <PaginaInscripciones />
-                    </RequerirAutenticacion>
-                    <PieApp />
-                  </>
+                  <RequerirAutenticacion redirectTo="/">
+                    <CrearProyecto />
+                  </RequerirAutenticacion>
                 }
               />
               <Route
-                path="/avances"
-                element={
-                  <>
-                    <RequerirAutenticacion redirectTo="/">
-                      <PaginaAvances />
-                    </RequerirAutenticacion>
-                    <PieApp />
-                  </>
-                }
-              />
-              <Route
+<<<<<<< HEAD
                 path="avances/:action"
                 element={
                   <>
@@ -119,32 +96,36 @@ function App() {
               />
               <Route
                 path="/acercade"
+=======
+                path="/actualizar_fase"
+>>>>>>> 35ded4c7e7beb9f9e94bba19d2ca15bfe4775188
                 element={
-                  <>
-                    <PaginaAcercaDe />
-                    <PieInicio />
-                  </>
+                  <RequerirAutenticacion redirectTo="/">
+                    <ActualizarFase />
+                  </RequerirAutenticacion>
                 }
               />
               <Route
-                path="/contacto"
+                path="/inscripciones"
                 element={
-                  <>
-                    <PaginaContacto />
-                    <PieInicio />
-                  </>
+                  <RequerirAutenticacion redirectTo="/">
+                    <PaginaInscripciones />
+                  </RequerirAutenticacion>
                 }
               />
               <Route
-                path="*"
+                path="/avances"
                 element={
-                  <>
-                    <PaginaNoEncontrada />
-                    <PieInicio />
-                  </>
+                  <RequerirAutenticacion redirectTo="/">
+                    <PaginaAvances />
+                  </RequerirAutenticacion>
                 }
               />
+              <Route path="/acercade" element={<PaginaAcercaDe />} />
+              <Route path="/contacto" element={<PaginaContacto />} />
+              <Route path="*" element={<PaginaNoEncontrada />} />
             </Routes>
+            <PieInicio />
           </AutenticancionProveedor>
         </CustomApolloProvider>
       </PersonalTokenProvider>
