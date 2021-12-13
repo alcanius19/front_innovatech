@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { ToastContainer } from "react-bootstrap";
 import Mensaje from "./mensaje";
 import { v4 } from "uuid";
-import { IMensaje } from "../componentes/Interfaces/Interfaces";
+import { IMensaje } from "../componentes/usuario/Interfaces/Interfaces";
 
 const ContenedorMensajes = ({
   pila,
