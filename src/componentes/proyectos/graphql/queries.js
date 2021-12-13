@@ -56,3 +56,18 @@ export const PROYECTOS_ID = gql`
     }
   }
 `;
+
+export const LISTAR_AVANCES = gql`
+  query {
+    listarAvances {
+      _id
+      id_proyecto {
+        _id
+        nombre_proyecto
+        objetivo_general
+      }
+      id_usuario
+      descripcion
+    }
+  }
+`;

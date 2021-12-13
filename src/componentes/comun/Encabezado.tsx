@@ -167,37 +167,30 @@ const Encabezado = () => {
                       </li>
                       {estadoAutenticacion.autenticado ? (
                         <>
-                          <ul id="nav" className="navbar-nav ms-auto">
-                            <li className="nav-item">
-                              <NavLink to="/usuarios">Usuarios</NavLink>
-                            </li>
-                            <li className="nav-item">
-                              <NavLink to="/avances">Avances</NavLink>
-                            </li>
-                            <li className="nav-item">
-                              <NavLink to="/inscripciones">
-                                Inscripciones
-                              </NavLink>
-                            </li>
-                            <li className="nav-item">
-                              <NavLink to="/proyectos">Proyectos</NavLink>
-                              <ul
-                                className="sub-menu collapse"
-                                id="submenu-1-4"
-                              >
-                                <li className="nav-item">
-                                  <NavLink to="/crear_proyecto">
-                                    crear Proyecto
-                                  </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/actualizar_fase">
-                                    Editar fase
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
+                          <li className="nav-item">
+                            <NavLink to="/usuarios">Usuarios</NavLink>
+                          </li>
+                          <li className="nav-item">
+                            <NavLink to="/avances">Avances</NavLink>
+                          </li>
+                          <li className="nav-item">
+                            <NavLink to="/inscripciones">Inscripciones</NavLink>
+                          </li>
+                          <li className="nav-item">
+                            <NavLink to="/proyectos">Proyectos</NavLink>
+                            <ul className="sub-menu collapse" id="submenu-1-4">
+                              <li className="nav-item">
+                                <NavLink to="/crear_proyecto">
+                                  crear Proyecto
+                                </NavLink>
+                              </li>
+                              <li className="nav-item">
+                                <NavLink to="/actualizar_fase">
+                                  Editar fase
+                                </NavLink>
+                              </li>
+                            </ul>
+                          </li>
                         </>
                       ) : null}
                       {/* <li className="nav-item">

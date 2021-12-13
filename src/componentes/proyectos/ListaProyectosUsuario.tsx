@@ -8,7 +8,7 @@ import { useMutation } from "@apollo/client";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { IPROYECTO } from "../Interfaces/Interfaces_proyecto";
-import { PROYECTOS_USUARIO } from "./graphql/queries";
+import { PROYECTOS_USUARIO, LISTAR_AVANCES } from "./graphql/queries";
 import { useQuery } from "@apollo/client";
 
 function ListaProyectosUsuario({
@@ -25,6 +25,8 @@ function ListaProyectosUsuario({
   const proyectos = useQuery(PROYECTOS_USUARIO, {
     variables: { id_usuario: tipo_usuario },
   });
+  const avances = useQuery(LISTAR_AVANCES);
+  console.log(avances.data);
   const [estado, setEstado] = React.useState(false);
   const [proyectoSelect, setProyectoSelect] = React.useState<IPROYECTO>(
     {} as IPROYECTO
