@@ -2,10 +2,9 @@ import * as React from "react";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
 import { NavLink, useParams } from "react-router-dom";
-import Listar_Avance from "./Listar/Listar_Avance";
 import CrearAvance from "./Crear/CrearAvance";
+import Listar_Avance from "./Listar/Listar_Avance";
 import ActualizarAvance from "./Actualizar/ActualizarAvance";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 
@@ -36,7 +35,7 @@ const Avances = () => {
                 ) : (
                   <NavLink
                     className="btn btn-primary mr-3"
-                    to={`/avances/CrearAvance`}
+                    to={`/avances/crear`}
                   >
                     Crear Avance
                   </NavLink>

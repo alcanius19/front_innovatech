@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useRef, forwardRef } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form } from "react-bootstrap";
 import { PropTypes } from "prop-types";
 import { v4 } from "uuid";
 import { EEstados, ETipos } from "../../Enumeraciones/Enumeraciones";
 import { textFilter, selectFilter } from "react-bootstrap-table2-filter";
+import "react-bootstrap-table-next/style/react-bootstrap-table2.scss";
+import { Type } from "react-bootstrap-table2-editor";
 import { capitalizar } from "../../../utilidades/utilidades";
 import useAutenticarContexto from "../../ganchos/useAutenticar";
-
+import moment from "moment";
 const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
   const [filaSeleccionadas, setFilaSeleccionadas] = useState([]);
   const { estadoAutenticacion } = useAutenticarContexto();
@@ -27,28 +29,10 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
         [...filaSeleccionadas].filter((item) => item !== row)
       );
       if (alBorrarFilas) {
-        alBorrarFilas();
+        alBorrarFilas(row._id);
       }
     }
   };
-
-  // eslint-disable-next-line no-unused-vars
-  const onFormatoEstado = (cell, row, rowIndex, extraData) => (
-    <div
-      className={`m-0 fw-bold badge fs-6 ${
-        cell === EEstados.AUTORIZADO
-          ? "bg-success"
-          : cell === EEstados.PENDIENTE
-          ? "bg-primary"
-          : cell === EEstados.PENDIENTE
-          ? "bg-warning"
-          : "bg-danger"
-      } text-center`}
-      style={{ width: "8rem" }}
-    >
-      {capitalizar(cell)}
-    </div>
-  );
 
   class CmbEstado extends React.Component {
     static estados = [
@@ -87,11 +71,12 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
             key={"dropdown_estado"}
             {...rest}
             ref={(node) => (this.dropdown_estado = node)}
-            variant="outline(-primary"
+            variant="outline-primary"
             onChange={(e) => {
               onUpdate(e.currentTarget.value);
             }}
-            className="fw-bold text-break fs-6"
+            className="fw-bold text-wrap text-break"
+            style={{ fontSize: "11px" }}
           >
             {CmbEstado.estados &&
               CmbEstado.estados.map((_estado) => (
@@ -104,6 +89,23 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
       ];
     }
   }
+
+  // eslint-disable-next-line no-unused-vars
+  const onFormatoEstado = (cell, row, rowIndex, extraData) => (
+    <div
+      className={`m-0 fw-bold badge text-wrap w-auto ${
+        cell === EEstados.AUTORIZADO
+          ? "bg-success"
+          : cell === EEstados.PENDIENTE
+          ? "bg-primary"
+          : cell === EEstados.PENDIENTE
+          ? "bg-warning"
+          : "bg-danger"
+      } text-center`}
+    >
+      {capitalizar(cell)}
+    </div>
+  );
 
   class CmbTipo extends React.Component {
     static tipos = [ETipos.ADMINISTRADOR, ETipos.ESTUDIANTE, ETipos.LIDER];
@@ -148,7 +150,8 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
             {...rest}
             variant="outline-primary"
             onChange={(e) => onUpdate(e.currentTarget.value)}
-            className="fw-bold text-break fs-6"
+            className="fw-bold text-wrap text-break"
+            style={{ fontSize: "11px" }}
           >
             {CmbTipo.tipos &&
               CmbTipo.tipos.map((_tipo) => {
@@ -181,7 +184,7 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
   // eslint-disable-next-line no-unused-vars
   const onFormatoTipo = (cell, row, rowIndex, extraData) => (
     <div
-      className={`m-0 fw-bold badge fs-6 ${
+      className={`m-0 fw-bold badge text-wrap w-auto ${
         cell === ETipos.ADMINISTRADOR
           ? "bg-success"
           : cell === ETipos.LIDER
@@ -190,14 +193,13 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
           ? "bg-warning"
           : "bg-danger"
       } text-center`}
-      style={{ width: "9rem" }}
     >
       {capitalizar(cell)}
     </div>
   );
 
   // eslint-disable-next-line no-unused-vars
-  const onFormato = (cell, row, rowIndex, extraData) => (
+  const onFormatoAcciones = (cell, row, rowIndex, extraData) => (
     <div className="d-flex justify-content-center align-items-center">
       <button className={"btn btn-Dark"} onClick={() => handleDelete(row)}>
         <FontAwesomeIcon
@@ -216,52 +218,122 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
     </div>
   );
 
+  const caretaOrden = (order, column) => {
+    if (!order) {
+      return (
+        <div>
+          <FontAwesomeIcon
+            icon={["fas", "caret-down"]}
+            size="1x"
+            style={{ color: "black" }}
+          />
+          <FontAwesomeIcon
+            icon={["fas", "caret-up"]}
+            size="1x"
+            style={{ color: "black" }}
+          />
+        </div>
+      );
+    } else if (order === "asc")
+      return (
+        <div>
+          <FontAwesomeIcon
+            icon={["fas", "caret-down"]}
+            size="1x"
+            style={{ color: "black" }}
+          />
+          <FontAwesomeIcon
+            icon={["fas", "caret-up"]}
+            size="1x"
+            style={{ color: "red" }}
+          />
+        </div>
+      );
+    else if (order === "desc")
+      return (
+        <div>
+          <FontAwesomeIcon
+            icon={["fas", "caret-down"]}
+            size="1x"
+            style={{ color: "red" }}
+          />
+          <FontAwesomeIcon
+            icon={["fas", "caret-up"]}
+            size="1x"
+            style={{ color: "black" }}
+          />
+        </div>
+      );
+    return null;
+  };
+
+  const onFormatoFecha = (cell) => {
+    moment.locale("es");
+    return moment(cell, moment.ISO_8601).format("L");
+  };
+
   const keyid = "_id";
   const columnas = [
     {
       dataField: keyid,
       text: "Estudiante ID",
       sort: true,
+      sortCaret: caretaOrden,
       headerStyle: {
         textAlign: "center",
       },
-      classes: "fw-bold text-break text-wrap fs-6",
+      classes: "fw-bold text-break text-wrap",
     },
     {
       dataField: "identificacion",
       text: "Identificación",
       sort: true,
+      sortCaret: caretaOrden,
       headerStyle: {
         textAlign: "center",
       },
-      classes: "fw-bold text-break text-wrap fs-6",
+      classes: "fw-bold text-break text-wrap",
       editable: handleOnEdit,
-      filter: textFilter({ placeholder: "Identificación" }),
+      filter: textFilter({
+        placeholder: "Identificación",
+        style: { fontSize: "12px" },
+      }),
     },
     {
       dataField: "nombre_completo",
       text: "Nombre",
       sort: true,
+      sortCaret: caretaOrden,
       headerStyle: {
         textAlign: "center",
       },
-      classes: "fw-bold text-break text-wrap fs-6",
+      classes: "fw-bold text-break text-wrap",
       editable: handleOnEdit,
-      filter: textFilter({ placeholder: "Nombres" }),
+      filter: textFilter({
+        placeholder: "Nombres",
+        style: { fontSize: "12px" },
+      }),
     },
     {
       dataField: "email",
       text: "Correo",
+      sort: true,
+      sortCaret: caretaOrden,
       headerStyle: {
         textAlign: "center",
       },
-      classes: "fw-bold text-break text-wrap fs-6",
+      classes: "fw-bold text-break text-wrap",
       editable: handleOnEdit,
-      filter: textFilter({ placeholder: "Correo" }),
+      filter: textFilter({
+        placeholder: "Correo",
+        style: { fontSize: "12px" },
+      }),
     },
     {
       dataField: "estado",
       text: "Estado",
+      sort: true,
+      sortCaret: caretaOrden,
       headerStyle: {
         textAlign: "center",
       },
@@ -283,11 +355,14 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
       filter: selectFilter({
         options: CmbEstado.filtro(),
         placeholder: "Seleccione",
+        style: { fontSize: "12px" },
       }),
     },
     {
       dataField: "tipo_usuario",
       text: "Tipo de Usuario",
+      sort: true,
+      sortCaret: caretaOrden,
       headerStyle: {
         textAlign: "center",
       },
@@ -310,13 +385,52 @@ const ModeloTabla = (datosTabla, setDatosTabla, alBorrarFilas) => {
       filter: selectFilter({
         options: CmbTipo.filtro(),
         placeholder: "Seleccione",
+        style: { fontSize: "12px" },
       }),
     },
     {
+      dataField: "fecha_ingreso",
+      text: "Fecha ingreso",
+      sort: true,
+      sortCaret: caretaOrden,
+      headerStyle: {
+        textAlign: "center",
+      },
+      classes: "fw-bold text-break text-wrap text-center",
+      editable: handleOnEdit,
+      filter: textFilter({
+        placeholder: "Fecha ingreso",
+        style: { fontSize: "12px" },
+      }),
+      editor: {
+        type: Type.DATE,
+      },
+      formatter: onFormatoFecha,
+    },
+    {
+      dataField: "fecha_egreso",
+      text: "Fecha egreso",
+      sort: true,
+      sortCaret: caretaOrden,
+      headerStyle: {
+        textAlign: "center",
+      },
+      classes: "fw-bold text-break text-wrap text-center",
+      editable: handleOnEdit,
+      filter: textFilter({
+        placeholder: "Fecha egreso",
+        style: { fontSize: "12px" },
+      }),
+      editor: {
+        type: Type.DATE,
+      },
+      formatter: onFormatoFecha,
+    },
+    {
       dataField: "opciones",
-      text: "...",
+      text: "Acciones",
       editable: false,
-      formatter: onFormato,
+      formatter: onFormatoAcciones,
       formatExtraData: filaSeleccionadas,
       headerStyle: {
         textAlign: "center",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Toast } from "react-bootstrap";
-import { IMensaje } from "../componentes/Interfaces/Interfaces";
+import { IMensaje } from "../componentes/usuario/Interfaces/Interfaces";
 
 const Mensaje = ({
   alerta,

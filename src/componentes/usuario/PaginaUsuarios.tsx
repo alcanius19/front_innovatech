@@ -1,5 +1,4 @@
 import * as React from "react";
-//import useExtraer from "../ganchos/useExtraer";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 import { useEffect, useState } from "react";
 import Tabla from "./tabla/Tabla";
@@ -9,18 +8,15 @@ import FormularioNuevoUsuario from "./Formularios/FormularioNuevoUsuario";
 import FormularioEliminarUsuarios from "./Formularios/FormularioEliminarUsuarios";
 import { useMutation, useQuery } from "@apollo/client";
 import {
+  eliminarUsuarioPorId,
   actualizarUsuarioPorId,
   obtenerUsuarios,
 } from "../../graphql/consulta_usuarios";
-import {
-  IUsuario,
-  IUsuarioA,
-  IPropsFormulario,
-} from "../Interfaces/Interfaces";
+import { IUsuario, IUsuarioA, IPropsFormulario } from "./Interfaces/Interfaces";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 
-const Estudiantes = () => {
+const Usuarios = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [alerta, pila, setPila] = useMensajes();
 
@@ -35,7 +31,14 @@ const Estudiantes = () => {
   const [consultaActualizarUsuarioPorId] = useMutation(actualizarUsuarioPorId, {
     fetchPolicy: "no-cache",
   });
+  const [consultaEliminarUsuarioPorId] = useMutation(eliminarUsuarioPorId, {
+    fetchPolicy: "no-cache",
+  });
+
   const [usuarios, setUsuarios] = useState<IUsuario[]>([] as IUsuario[]);
+  const [usuariosSeleccionados, setUsuariosSeleccionados] = useState<
+    IUsuario[]
+  >([] as IUsuario[]);
   const [proveedorTabla, setProveedorTabla] = useState<IUsuario[]>(
     [] as IUsuario[]
   );
@@ -43,7 +46,6 @@ const Estudiantes = () => {
   const [mostrarEliminarUsuarios, setMostrarEliminarUsuarios] = useState(false);
 
   useEffect(() => {
-    console.log(estadoAutenticacion);
     if (consultaUsuarios?.data) {
       setUsuarios(consultaUsuarios.data.usuarios as IUsuario[]);
     }
@@ -51,7 +53,6 @@ const Estudiantes = () => {
 
   useEffect(() => {
     if (usuarios.length > 0) {
-      console.log(usuarios);
       setProveedorTabla(usuarios);
       alerta({
         titulo: "Usuarios Cargados.",
@@ -61,13 +62,26 @@ const Estudiantes = () => {
     }
   }, [usuarios.length]);
 
-  const alBorrarFilas = () => {
-    //   alerta({
-    //     titulo: "Información",
-    //     mensaje: "Se ha eliminado un producto.",
-    //     tiempo: 0,
-    //   });
+  const propsFormularioNuevoUsuario: IPropsFormulario = {
+    mensaje: "Registro",
+    textoOpcion: "",
+    cerrarForm: () => {
+      setMostrarNuevoUsuario(false);
+      consultaUsuarios.refetch();
+    },
+    botones: {
+      botonNuevoUsuario: {
+        nombre: "Crear Usuario",
+        claseBoton: "outline-success",
+        click: () => null,
+      },
+    },
   };
+
+  const handleNuevoUsuario = () => {
+    setMostrarNuevoUsuario(true);
+  };
+
   const alGuardarFilas = async (_usuario: IUsuario) => {
     const _usuarioa: IUsuarioA = {} as IUsuarioA;
     _usuarioa.nombre_completo = _usuario.nombre_completo;
@@ -97,48 +111,86 @@ const Estudiantes = () => {
       console.log("Error al actualizar usuario.");
     }
   };
-  const onSeleccion = () => {
-    console.log("seleccion");
-  };
 
-  const handleNuevoUsuario = () => {
-    setMostrarNuevoUsuario(true);
-  };
-  const handleEliminarUsuarios = () => {
-    setMostrarEliminarUsuarios(true);
-  };
-
-  const propsFormularioNuevoUsuario: IPropsFormulario = {
-    mensaje: "Registro",
+  const propsFormularioEliminarUsuarios: IPropsFormulario = {
+    mensaje: "Advertencia: ¿Desea eliminar los Usuarios seleccionados?",
     textoOpcion: "",
-    cerrarForm: () => {
-      setMostrarNuevoUsuario(false);
+    cerrarForm: async () => {
+      setMostrarEliminarUsuarios(false);
+      const usuariosEliminados: string[] = [];
+      for (const _usuario of usuariosSeleccionados) {
+        const eliminado = await eliminarUsuario(_usuario._id);
+        console.log(eliminado);
+        eliminado == true ? usuariosEliminados.push(_usuario._id) : null;
+      }
+      alerta({
+        titulo: "Usuarios Eliminados",
+        mensaje: `Los usuarios con ids: ${usuariosEliminados.join(
+          ", "
+        )} han sido eliminados`,
+        tiempo: 0,
+      });
       consultaUsuarios.refetch();
     },
     botones: {
-      botonLogin: {
-        nombre: "Ingresar",
+      botonEliminar: {
+        nombre: "Eliminar Usuarios",
         claseBoton: "outline-success",
         click: () => null,
       },
     },
   };
-  const propsFormularioEliminarUsuarios: IPropsFormulario = {
-    mensaje: "Ingresa al sistema",
-    textoOpcion: "",
-    cerrarForm: () => {
-      setMostrarEliminarUsuarios(false);
-    },
-    botones: {
-      botonLogin: {
-        nombre: "Ingresar",
-        claseBoton: "outline-success",
-        click: () => null,
+
+  const eliminarUsuario = async (_id: string) => {
+    const _usuario = await consultaEliminarUsuarioPorId({
+      variables: {
+        _id,
       },
-    },
+    });
+    if (_usuario) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const alBorrarFilas = async (_id: string) => {
+    const eliminado: boolean = await eliminarUsuario(_id);
+    if (eliminado) {
+      consultaUsuarios.refetch();
+      alerta({
+        titulo: "Información",
+        mensaje: `El usuario con id:${_id} ha sido eliminado.`,
+        tiempo: 0,
+      });
+    } else {
+      alerta({
+        titulo: "Información",
+        mensaje: `Error al eliminar el usuario.`,
+        tiempo: 0,
+      });
+    }
+  };
+
+  const handleEliminarUsuarios = () => {
+    if (usuariosSeleccionados.length > 0) {
+      setMostrarEliminarUsuarios(true);
+    } else {
+      alerta({
+        titulo: "Información",
+        mensaje: "Seleccione los usuarios a eliminar.",
+        tiempo: 0,
+      });
+    }
+  };
+
+  const onSeleccion = (_usuariosSeleccionados: IUsuario[]) => {
+    setUsuariosSeleccionados(_usuariosSeleccionados);
   };
   return (
-    <section className="area-usuarios">
+    <section
+      className="area-usuarios"
+      style={{ height: 480, backgroundColor: "white" }}
+    >
       <ContenedorMensajes pila={pila} setPila={setPila} />
       <VentanaModal
         abrir={mostrarNuevoUsuario}
@@ -170,14 +222,14 @@ const Estudiantes = () => {
       </div>
       <div id="opciones estudiante" className="container-fluid mb-2">
         <button
-          className="btn me-2"
+          className="btn me-2 btn-sm"
           style={{ backgroundColor: "#0edc8d", color: "white" }}
           onClick={handleNuevoUsuario}
         >
           Nuevo Usuario
         </button>
         <button
-          className="btn me-2"
+          className="btn me-2 btn-sm"
           style={{ backgroundColor: "#0edc8d", color: "white" }}
           onClick={handleEliminarUsuarios}
         >
@@ -186,7 +238,7 @@ const Estudiantes = () => {
       </div>
       <div
         className={"tabla-usuarios container-fluid overflow-auto"}
-        style={{ height: 250 }}
+        style={{ height: 400 }}
       >
         <Tabla
           datos={proveedorTabla}
@@ -204,4 +256,4 @@ const Estudiantes = () => {
   );
 };
 
-export default Estudiantes;
+export default Usuarios;

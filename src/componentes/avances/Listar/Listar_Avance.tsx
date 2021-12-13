@@ -2,8 +2,6 @@ import * as React from "react";
 import { LIST_AVANCES } from "../graphql/queries";
 import { useQuery } from "@apollo/client";
 import { NavLink } from "react-router-dom";
-import useMensajes from "../../ganchos/useMensajes";
-import ContenedorMensajes from "../../../utilidades/contenedor_mensajes";
 import { useEffect } from "react";
 import { IAvance, Iobservacion } from "../../Interfaces/interfacesAvance";
 import "../../avances/components.css";
@@ -70,7 +68,7 @@ const Listar_Avance = () => {
                     <button
                       type="button"
                       className="btn btn btn-danger mr-3"
-                      data-prueba={"data de pruebas"}
+                      data-prueba="data de pruebas"
                       onClick={() => handleDelete(avance._id)}
                     >
                       Eliminar
