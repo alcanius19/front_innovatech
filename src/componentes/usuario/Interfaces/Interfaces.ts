@@ -1,4 +1,4 @@
-import { EAutenticacion } from "../Enumeraciones/Enumeraciones";
+import { EAutenticacion } from "../../Enumeraciones/Enumeraciones";
 
 export interface IMensaje {
   id: number;
@@ -65,6 +65,7 @@ export interface IPropsFormulario {
   cerrarForm: () => void;
   mensaje: string;
   textoOpcion: string;
+  [x: string]: unknown;
 }
 
 export interface IPropsBotones {

@@ -11,7 +11,8 @@ import { PersonalTokenProvider } from "./ganchos/useToken";
 import CustomApolloProvider from "../graphql/cliente_apollo";
 // Común
 import Encabezado from "./comun/Encabezado";
-import Pie from "./comun/Pie";
+import PieInicio from "./comun/Pie_inicio";
+import PieApp from "./comun/Pie_app";
 //paginas
 import PaginaInicio from "./inicio/PaginaInicio";
 import PaginaAvances from "./avances/PaginaAvances";
@@ -52,44 +53,87 @@ function App() {
           <AutenticancionProveedor>
             <Encabezado />
             <Routes>
-              <Route path="/" element={<PaginaInicio />} />
+              <Route
+                path="/"
+                element={
+                  <>
+                    <PaginaInicio />
+                    <PieInicio />
+                  </>
+                }
+              />
               <Route
                 path="/usuarios"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaUsuarios />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaUsuarios />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/proyectos"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaProyectos />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaProyectos />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/inscripciones"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaInscripciones />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaInscripciones />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/avances"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaAvances />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaAvances />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
-              <Route path="/acercade" element={<PaginaAcercaDe />} />
-              <Route path="/contacto" element={<PaginaContacto />} />
-              <Route path="*" element={<PaginaNoEncontrada />} />
+              <Route
+                path="/acercade"
+                element={
+                  <>
+                    <PaginaAcercaDe />
+                    <PieInicio />
+                  </>
+                }
+              />
+              <Route
+                path="/contacto"
+                element={
+                  <>
+                    <PaginaContacto />
+                    <PieInicio />
+                  </>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <>
+                    <PaginaNoEncontrada />
+                    <PieInicio />
+                  </>
+                }
+              />
             </Routes>
-            <Pie />
           </AutenticancionProveedor>
         </CustomApolloProvider>
       </PersonalTokenProvider>

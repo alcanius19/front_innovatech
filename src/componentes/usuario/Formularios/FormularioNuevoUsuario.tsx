@@ -13,7 +13,7 @@ import YupPassword from "yup-password";
 YupPassword(yup);
 import moment from "moment";
 moment.locale("en");
-import { IPropsFormulario, IUsuario } from "../../Interfaces/Interfaces";
+import { IPropsFormulario, IUsuario } from "../Interfaces/Interfaces";
 import { EEstados, ETipos } from "../../Enumeraciones/Enumeraciones";
 import { crearUsuario } from "../../../graphql/consulta_usuarios";
 import { useMutation } from "@apollo/client";
@@ -235,6 +235,7 @@ const FormularioNuevoUsuario = ({
           readOnly={cargando}
           {...register("nombre_completo")}
           onChange={(e) => setNombreCompleto(e.target.value)}
+          size="sm"
         />
         {errors.nombre_completo?.message ? (
           <Form.Text className="text-danger">
@@ -251,6 +252,7 @@ const FormularioNuevoUsuario = ({
           readOnly={cargando}
           {...register("identificacion")}
           onChange={(e) => setIdentificacion(e.target.value)}
+          size="sm"
         />
         {errors.identificacion?.message ? (
           <Form.Text className="text-danger">
@@ -266,6 +268,7 @@ const FormularioNuevoUsuario = ({
           disabled={cargando}
           {...register("tipo_usuario")}
           onChange={(e) => setTipoUsuario(e.target.value)}
+          size="sm"
         >
           <option>Seleccione el tipo de usuario</option>
           {tipos &&
@@ -289,6 +292,7 @@ const FormularioNuevoUsuario = ({
           disabled={cargando}
           {...register("estado")}
           onChange={(e) => setEstado(e.target.value)}
+          size="sm"
         >
           <option>Seleccione el estado</option>
           {estados &&
@@ -313,6 +317,7 @@ const FormularioNuevoUsuario = ({
           readOnly={cargando}
           {...register("fecha_ingreso")}
           onChange={(e) => setFechaIngreso(e.target.value)}
+          size="sm"
         />
         {errors.fecha_ingreso?.message ? (
           <Form.Text className="text-danger">
@@ -329,6 +334,7 @@ const FormularioNuevoUsuario = ({
           readOnly={cargando}
           {...register("fecha_egreso")}
           onChange={(e) => setFechaEgreso(e.target.value)}
+          size="sm"
         />
         {errors.fecha_egreso?.message ? (
           <Form.Text className="text-danger">
@@ -345,6 +351,7 @@ const FormularioNuevoUsuario = ({
           readOnly={cargando}
           {...register("email")}
           onChange={(e) => setEmail(e.target.value)}
+          size="sm"
         />
         {errors.email?.message ? (
           <Form.Text className="text-danger">{errors.email?.message}</Form.Text>
@@ -359,6 +366,7 @@ const FormularioNuevoUsuario = ({
           readOnly={cargando}
           {...register("password")}
           onChange={(e) => setPassword(e.target.value)}
+          size="sm"
         />
         {errors.password?.message ? (
           <Form.Text className="text-danger">
@@ -385,6 +393,7 @@ const FormularioNuevoUsuario = ({
           key={v4()}
           onClick={() => manejarNuevoUsuario()}
           className={"me-2"}
+          size="sm"
         >
           Registrar
         </Button>
@@ -392,6 +401,7 @@ const FormularioNuevoUsuario = ({
           variant={"outline-primary"}
           key={v4()}
           onClick={() => limpiarFormulario()}
+          size="sm"
         >
           Limpiar
         </Button>
