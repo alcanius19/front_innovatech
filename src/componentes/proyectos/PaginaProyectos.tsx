@@ -16,7 +16,7 @@ const Administracion = () => {
   const consultaUser = useQuery(PROYECTOS_USUARIO, {
     variables: { id_usuario: id },
   });
-  // console.log(consultaUser.data);
+  console.log(consultaUser.data);
   if (consulta.error) return <span>{consulta.error}</span>;
 
   const [alerta, pila, setPila] = useMensajes();
@@ -27,14 +27,22 @@ const Administracion = () => {
     <section className="area-proyectos">
       <ContenedorMensajes pila={pila} setPila={setPila} />
 
-      {consulta.loading ? <p>loading...</p> : ""}
-      {tipo_usuario == "administrador" ? (
-        <ListaProyectos proyects={consulta.data?.proyectos} />
-      ) : (
-        <ListaProyectosUsuario
-          proyectsUser={consultaUser.data?.proyecto_id_usuario}
-        />
-      )}
+      {(() => {
+        if (tipo_usuario == "administrador")
+          return <ListaProyectos proyects={consulta.data?.proyectos} />;
+        if (tipo_usuario == "lider")
+          return (
+            <ListaProyectosUsuario
+              proyectsUser={consultaUser.data?.proyecto_id_usuario}
+            />
+          );
+        else
+          return (
+            <ListaProyectosUsuario
+              proyectsUser={consultaUser.data?.proyecto_id_usuario}
+            />
+          );
+      })()}
     </section>
   );
 };

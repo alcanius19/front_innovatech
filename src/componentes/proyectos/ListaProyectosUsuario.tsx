@@ -97,18 +97,48 @@ function ListaProyectosUsuario({
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    {p.estado == "activo" ? (
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => {
-                          seleccionarProyecto(p, "Editar");
-                        }}
-                      >
-                        Editar
-                      </button>
-                    ) : (
-                      <span>Pendiente Activacion..</span>
-                    )}
+                    {(() => {
+                      if (
+                        p.estado == "activo" &&
+                        estadoAutenticacion.usuario.tipo_usuario == "lider"
+                      )
+                        return (
+                          <>
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => {
+                                seleccionarProyecto(p, "Editar");
+                              }}
+                            >
+                              Editar
+                            </button>
+
+                            <button
+                              className="btn btn-danger m-2"
+                              onClick={() => {
+                                seleccionarProyecto(p, "Editar");
+                              }}
+                            >
+                              Ver
+                            </button>
+                          </>
+                        );
+                      if (
+                        p.estado == "activo" &&
+                        estadoAutenticacion.usuario.tipo_usuario == "estudiante"
+                      )
+                        return (
+                          <button
+                            className="btn btn-primary"
+                            // onClick={() => {
+                            //   seleccionarProyecto(p, "Editar");
+                            // }}
+                          >
+                            Inscribirse
+                          </button>
+                        );
+                      else return <span>Pendiente Activacion..</span>;
+                    })()}
                   </Card.Footer>
                 </Card>
               </Col>

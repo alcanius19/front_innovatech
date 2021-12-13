@@ -6,6 +6,6 @@ export interface IPROYECTO {
   nombre_proyecto: string;
   objetivo_general: string;
   objetivo_especifico: string;
-  presupuesto: number;
+  presupuesto: any;
   fase_proyecto: string;
 }

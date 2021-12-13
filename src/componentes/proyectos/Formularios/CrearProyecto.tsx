@@ -60,7 +60,7 @@ function CrearProyecto() {
   return (
     <div>
       <ContenedorMensajes pila={pila} setPila={setPila} />
-      {tipo_usuario != "administrador" ? (
+      {tipo_usuario != "administrador" && tipo_usuario != "estudiante" ? (
         <Container className="container-fluid mt-4">
           <Row>
             <h1>Crear Proyecto Lider</h1>
