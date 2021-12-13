@@ -85,6 +85,14 @@ function App() {
                   </RequerirAutenticacion>
                 }
               />
+                  <Route
+                path="/avances/:action"
+                element={
+                  <RequerirAutenticacion redirectTo="/">
+                    <PaginaAvances />
+                  </RequerirAutenticacion>
+                }
+              />
               <Route path="/acercade" element={<PaginaAcercaDe />} />
               <Route path="/contacto" element={<PaginaContacto />} />
               <Route path="*" element={<PaginaNoEncontrada />} />
