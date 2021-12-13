@@ -2,20 +2,39 @@ import * as React from "react";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { useEffect } from "react";
-
+import { useQuery } from "@apollo/client";
+import ListaProyectos from "./ListaProjectos";
+import { LIST_PROYECTS, PROYECTOS_USUARIO } from "./graphql/queries";
+import useAutenticarContexto from "../ganchos/useAutenticar";
+import ListaProyectosUsuario from "./ListaProyectosUsuario";
+import { type } from "os";
 const Administracion = () => {
+  const { estadoAutenticacion } = useAutenticarContexto();
+  const tipo_usuario = estadoAutenticacion.usuario.tipo_usuario;
+  const id = estadoAutenticacion.usuario._id;
+  const consulta = useQuery(LIST_PROYECTS);
+  const consultaUser = useQuery(PROYECTOS_USUARIO, {
+    variables: { id_usuario: id },
+  });
+  // console.log(consultaUser.data);
+  if (consulta.error) return <span>{consulta.error}</span>;
+
   const [alerta, pila, setPila] = useMensajes();
-  useEffect(() => {
-    alerta({
-      titulo: "Bienvenido desde Proyectos.",
-      mensaje: "Prueba Mensaje",
-      tiempo: 0,
-    });
-  }, []);
+  // useEffect(() => {
+  //   consulta.refetch();
+  // }, [consulta]);
   return (
     <section className="area-proyectos">
       <ContenedorMensajes pila={pila} setPila={setPila} />
-      <div>Proyectos</div>
+
+      {consulta.loading ? <p>loading...</p> : ""}
+      {tipo_usuario == "administrador" ? (
+        <ListaProyectos proyects={consulta.data?.proyectos} />
+      ) : (
+        <ListaProyectosUsuario
+          proyectsUser={consultaUser.data?.proyecto_id_usuario}
+        />
+      )}
     </section>
   );
 };

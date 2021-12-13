@@ -27,6 +27,7 @@ export const PROYECTOS_USUARIO = gql`
       nombre_proyecto
       objetivo_general
       objetivo_especifico
+      presupuesto
       estado
       id_usuario {
         _id
