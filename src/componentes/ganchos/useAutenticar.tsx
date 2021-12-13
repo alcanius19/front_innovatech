@@ -10,7 +10,7 @@ import {
   IEstadoAutenticacion,
   IAUsuario,
   ILogin,
-} from "../Interfaces/Interfaces";
+} from "../usuario/Interfaces/Interfaces";
 import { EAutenticacion } from "../Enumeraciones/Enumeraciones";
 
 const AutenticarContexto = createContext<IAutenticacion>({} as IAutenticacion);

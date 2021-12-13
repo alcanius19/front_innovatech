@@ -53,6 +53,21 @@ export const actualizarUsuarioPorId = gql`
   }
 `;
 
+export const eliminarUsuarioPorId = gql`
+  mutation eliminarUsuarioPorID($_id: ID!) {
+    eliminarUsuarioPorID(_id: $_id) {
+      _id
+      nombre_completo
+      identificacion
+      email
+      estado
+      tipo_usuario
+      fecha_egreso
+      fecha_ingreso
+    }
+  }
+`;
+
 export const login = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {

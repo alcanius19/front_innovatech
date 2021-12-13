@@ -1,45 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
 import Modal, { RenderModalBackdropProps } from "react-overlays/Modal";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { v4 } from "uuid";
-import {
-  IEstadoAutenticacion,
-  IAUsuario,
-  IPropsFormulario,
-} from "../../Interfaces/Interfaces";
+import { IPropsFormulario } from "../Interfaces/Interfaces";
 import useAutenticarContexto from "../../ganchos/useAutenticar";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-YupPassword(yup);
-import { EAutenticacion } from "../../Enumeraciones/Enumeraciones";
 
-const schema = yup.object({
-  email: yup
-    .string()
-    .email("Ingresa un correo valido.")
-    .required("Debes ingresar un correo."),
-  password: yup
-    .string()
-    .password()
-    .required("Debes ingresar una contraseña.")
-    .minLowercase(
-      2,
-      "La contraseña debe contener al menos 2 caracteres en minúscula."
-    )
-    .minUppercase(
-      1,
-      "La contraseña debe contener al menos 1 caracter en mayúscula."
-    )
-    .minNumbers(2, "La contraseña debe contener al menos 2 números.")
-    .minSymbols(1, "La contraseña debe contener al menos 1 símbolo.")
-    .min(6, "La contraseña mínimo debe contener 6 caracteres.")
-    .max(14, "La contraseña debe contener máximo 14 caracteres."),
-});
 const Backdrop = styled("div")`
   position: absolute;
   z-index: 2000;
@@ -73,83 +40,20 @@ const FormularioEliminarUsuarios = ({
   formulario: IPropsFormulario;
 }) => {
   const [cargando, setCargando] = useState(false);
-  const [infoLogin, setInfoLogin] = useState("");
   const contenedor = useRef(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { estadoAutenticacion, ingresar } = useAutenticarContexto();
-  const {
-    register,
-    trigger,
-    formState: { errors },
-  } = useForm<IAUsuario>({
-    resolver: yupResolver(schema),
-  });
+  const { estadoAutenticacion } = useAutenticarContexto();
 
-  const navegar = useNavigate();
-  const [ausuario, setAusuario] = useState({} as IAUsuario);
-
-  const manejarLogin = async (ausuario: IAUsuario) => {
-    const result = await trigger();
-    if (result) {
-      const _ingresar = typeof ingresar === "function" ? ingresar() : null;
-      if (_ingresar) {
-        setCargando(true);
-        setTimeout(() => {
-          _ingresar(ausuario).then(
-            (estadoAutenticacion: void | IEstadoAutenticacion) => {
-              if (estadoAutenticacion?.autenticado) {
-                formulario.cerrarForm();
-                navegar("/proyectos");
-              } else {
-                switch (estadoAutenticacion?.estado) {
-                  case EAutenticacion.NOAUTENTICADO:
-                    setInfoLogin("Revise su usuario y su contraseña.");
-                    break;
-                  case EAutenticacion.SINDATOS:
-                    setInfoLogin("Datos incorrectos.");
-                    break;
-                  case EAutenticacion.ERROR:
-                    setInfoLogin("Error en el login");
-                    break;
-                  default:
-                    setInfoLogin("");
-                    break;
-                }
-              }
-              setCargando(false);
-            }
-          );
-        }, 2000);
-      }
-    }
+  const manejarEliminarUsuario = async () => {
+    setCargando(true);
+    setTimeout(async () => {
+      formulario.cerrarForm();
+      setCargando(false);
+    }, 2000);
   };
-
-  const [email, setEmail] = useState("");
-  const [contrasena, setcontrasena] = useState("");
-
-  useEffect(() => {
-    if (email !== "") {
-      setAusuario({ ...ausuario, email: email });
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (contrasena !== "") {
-      setAusuario({ ...ausuario, password: contrasena });
-    }
-  }, [contrasena]);
-
-  useEffect(() => {
-    if (infoLogin !== "") {
-      const id: NodeJS.Timeout = setTimeout(() => {
-        setInfoLogin("");
-      }, 4000);
-      return () => clearTimeout(id);
-    }
-  }, [infoLogin]);
   return (
-    <Form className="login" ref={contenedor}>
-      <Form.Group className="mb-1" controlId="formLogin">
+    <Form className="Eliminar" ref={contenedor}>
+      <Form.Group className="mb-1" controlId="formEliminar">
         <Form.Label>{formulario.mensaje}</Form.Label>
         {formulario?.textoOpcion && (
           <>
@@ -160,61 +64,13 @@ const FormularioEliminarUsuarios = ({
           </>
         )}
       </Form.Group>
-      <Form.Group className="mb-3" controlId="ausuario-email">
-        <Form.Label>Correo:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder={"Ingrese el correo..."}
-          value={email}
-          readOnly={cargando}
-          {...register("email")}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email?.message ? (
-          <Form.Text className="text-danger">{errors.email?.message}</Form.Text>
-        ) : null}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="ausuario-contrasena">
-        <Form.Label>Contraseña:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder={"Ingrese la contraseña..."}
-          value={contrasena}
-          readOnly={cargando}
-          {...register("password")}
-          onChange={(e) => setcontrasena(e.target.value)}
-        />
-        {errors.password?.message ? (
-          <Form.Text className="text-danger">
-            {errors.password?.message}
-          </Form.Text>
-        ) : null}
-      </Form.Group>
-      {infoLogin && (
-        <div className={"d-flex justify-content-center mb-2"}>
-          <Form.Text className="text-danger">{infoLogin}</Form.Text>
-        </div>
-      )}
-      {/* {botones &&
-        Object.keys(botones).map((llave: string) => {
-          const boton: IPropsBotones = botones[llave];
-          return (
-            <Button
-              variant={boton.claseBoton}
-              key={v4()}
-              onClick={() => boton.click(ausuario)}
-            >
-              {boton.nombre}
-            </Button>
-          );
-        })} */}
       <div className={"d-flex justify-content-center mt-3"}>
         <Button
           variant={"outline-success"}
           key={v4()}
-          onClick={() => manejarLogin(ausuario)}
+          onClick={() => manejarEliminarUsuario()}
         >
-          Ingresar
+          Eliminar Usuarios
         </Button>
       </div>
       <OverlayCargando
