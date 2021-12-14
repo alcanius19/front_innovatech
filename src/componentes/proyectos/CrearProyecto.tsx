@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-
 import Switch from "react-switch";
 import Select from "react-select";
 import { CREAR_PROYECTO } from "./graphql/mutations";
