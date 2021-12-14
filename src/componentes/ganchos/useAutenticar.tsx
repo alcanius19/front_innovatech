@@ -127,7 +127,7 @@ function useAutenticar(): IAutenticacion {
       usuario: {
         _id: "61714aeba25378969e152f5e", //"619ace06cc23cfe7650c7e3c",
         nombre_completo: "Temp_lider", // "Temp_admin"
-        tipo_usuario: "lider", // "administrador"
+        tipo_usuario: "estudiante", // "administrador"
       } as IUsuario,
       estado: EAutenticacion.AUTENTICADO,
       token: "",

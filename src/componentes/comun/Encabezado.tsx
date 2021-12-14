@@ -7,6 +7,7 @@ import "../../css/tiny-slider.css";
 import logo from "../../images/logo/logo.svg";
 import VentanaModal from "../../utilidades/ventana_modal";
 import { IPropsFormulario } from "../../componentes/usuario/Interfaces/Interfaces";
+import FormularioRegistro from "./FormularioRegistro";
 import FormularioLogin from "./FormularioLogin";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 
@@ -25,7 +26,24 @@ const Encabezado = () => {
   };
 
   const [mostrarLogin, setMostrarLogin] = useState(false);
+
   const propsformularioLogin: IPropsFormulario = {
+    mensaje: "Ingresa al sistema",
+    textoOpcion: "",
+    cerrarForm: () => {
+      setMostrarLogin(false);
+    },
+    botones: {
+      botonLogin: {
+        nombre: "Ingresar",
+        claseBoton: "outline-success",
+        click: manejarLogin,
+      },
+    },
+  };
+
+  const [mostrarRegistro, setMostrarRegistro] = useState(false);
+  const propsFormularioRegistro: IPropsFormulario = {
     mensaje: "Ingresa al sistema",
     textoOpcion: "",
     cerrarForm: () => {
@@ -48,6 +66,14 @@ const Encabezado = () => {
         }}
         titulo={"Bienvenido a InnovaTech-Proyectos"}
         formulario={<FormularioLogin formulario={propsformularioLogin} />}
+      />
+      <VentanaModal
+        abrir={mostrarRegistro}
+        manejarCierre={() => {
+          setMostrarRegistro(false);
+        }}
+        titulo={"Ingresar Nuevo Usuario"}
+        formulario={<FormularioRegistro formulario={propsFormularioRegistro} />}
       />
       {/* {"<!-- Preloader -->"} */}
       <div className="preloader">
@@ -118,7 +144,12 @@ const Encabezado = () => {
                       </div>
                     ) : (
                       <div>
-                        <a href="registration.html">Crea una cuenta</a>
+                        <NavLink
+                          to="/"
+                          onClick={() => setMostrarRegistro(true)}
+                        >
+                          Crea una cuenta
+                        </NavLink>
                         <button
                           className={"btn btn-success"}
                           onClick={manejarLogin}

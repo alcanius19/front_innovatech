@@ -4,12 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
 import { UPDATE_PROYECTO_USUARIO } from "./graphql/mutations";
 import useAutenticarContexto from "../ganchos/useAutenticar";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { IPROYECTO } from "../Interfaces/Interfaces_proyecto";
 import { PROYECTOS_USUARIO, LISTAR_AVANCES } from "./graphql/queries";
-import { useQuery } from "@apollo/client";
 
 function ListaProyectosUsuario({
   proyectsUser,

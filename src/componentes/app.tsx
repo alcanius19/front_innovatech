@@ -57,60 +57,120 @@ function App() {
           <AutenticancionProveedor>
             <Encabezado />
             <Routes>
-              <Route path="/" element={<PaginaInicio />} />
+              <Route
+                path="/"
+                element={
+                  <>
+                    <PaginaInicio />
+                    <PieInicio />
+                  </>
+                }
+              />
               <Route
                 path="/usuarios"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaUsuarios />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaUsuarios />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/proyectos"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaProyectos />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaProyectos />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/crear_proyecto"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <CrearProyecto />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <CrearProyecto />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
+                }
+              />
+              <Route
+                path="avances/:action"
+                element={
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaAvances />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/actualizar_fase"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <ActualizarFase />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <ActualizarFase />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/inscripciones"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaInscripciones />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaInscripciones />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
               <Route
                 path="/avances"
                 element={
-                  <RequerirAutenticacion redirectTo="/">
-                    <PaginaAvances />
-                  </RequerirAutenticacion>
+                  <>
+                    <RequerirAutenticacion redirectTo="/">
+                      <PaginaAvances />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
                 }
               />
-              <Route path="/acercade" element={<PaginaAcercaDe />} />
-              <Route path="/contacto" element={<PaginaContacto />} />
-              <Route path="*" element={<PaginaNoEncontrada />} />
+              <Route
+                path="/acercade"
+                element={
+                  <>
+                    <PaginaAcercaDe />
+                    <PieInicio />
+                  </>
+                }
+              />
+              <Route
+                path="/contacto"
+                element={
+                  <>
+                    <PaginaContacto />
+                    <PieInicio />
+                  </>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <>
+                    <PaginaNoEncontrada />
+                    <PieInicio />
+                  </>
+                }
+              />
             </Routes>
-            <PieInicio />
           </AutenticancionProveedor>
         </CustomApolloProvider>
       </PersonalTokenProvider>

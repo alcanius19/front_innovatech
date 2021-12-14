@@ -4,16 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
 import { ACTUALIZAR_ESTADO } from "./graphql/mutations";
 import useAutenticarContexto from "../ganchos/useAutenticar";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { IPROYECTO } from "../Interfaces/Interfaces_proyecto";
 import { LIST_PROYECTS } from "./graphql/queries";
-import { useQuery } from "@apollo/client";
 // eslint-disable-next-line react/prop-types
 function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
   const [alerta, pila, setPila] = useMensajes();
   const [modalEditar, setModalEditar] = React.useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [proyect, setProyect] = useState(null);
   const [updateEstado] = useMutation(ACTUALIZAR_ESTADO);
   const proyectos = useQuery(LIST_PROYECTS);
@@ -22,6 +22,7 @@ function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
     {} as IPROYECTO
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const seleccionarProyecto = (elemento: any, caso: any) => {
     setProyectoSelect(elemento);
     caso === "Editar" && setModalEditar(true);
@@ -66,6 +67,7 @@ function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
 
   if (proyects == null) return null;
   const { estadoAutenticacion } = useAutenticarContexto();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const tipo_usuario = estadoAutenticacion.usuario.tipo_usuario;
   return (
     <Fragment>

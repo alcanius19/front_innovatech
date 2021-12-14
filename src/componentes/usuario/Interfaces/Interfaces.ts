@@ -73,3 +73,5 @@ export interface IPropsBotones {
   click: (usuario: IUsuario) => void;
   claseBoton: string;
 }
+
+
