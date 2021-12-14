@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { Fragment, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -129,7 +131,9 @@ function ListaProyectosUsuario({
                           <button
                             className="btn btn-primary"
                             value={p._id}
-                            onChange={(evt) => setIdProyecto(evt.target.value)}
+                            onChange={(evt: any) =>
+                              setIdProyecto(evt.target.value)
+                            }
                           >
                             Inscribirse
                           </button>

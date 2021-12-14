@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prop-types */
 import React, { Fragment, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
