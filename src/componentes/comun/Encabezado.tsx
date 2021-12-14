@@ -6,7 +6,7 @@ import "../../css/animate.css";
 import "../../css/tiny-slider.css";
 import logo from "../../images/logo/logo.svg";
 import VentanaModal from "../../utilidades/ventana_modal";
-import { IPropsFormulario } from "../../componentes/usuario/Interfaces/Interfaces";
+import { IPropsFormulario } from "../usuario/Interfaces/Interfaces";
 import FormularioRegistro from "./FormularioRegistro";
 import FormularioLogin from "./FormularioLogin";
 import useAutenticarContexto from "../ganchos/useAutenticar";

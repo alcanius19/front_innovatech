@@ -9,7 +9,7 @@ import {
   IAUsuario,
   IEstadoAutenticacion,
   IPropsFormulario,
-} from "../../componentes/usuario/Interfaces/Interfaces";
+} from "../usuario/Interfaces/Interfaces";
 import { EAutenticacion } from "../Enumeraciones/Enumeraciones";
 
 import { useNavigate } from "react-router-dom";

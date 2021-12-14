@@ -1,4 +1,4 @@
-import { IMensaje } from "../../componentes/usuario/Interfaces/Interfaces";
+import { IMensaje } from "../usuario/Interfaces/Interfaces";
 import { useEffect, useState, useRef } from "react";
 
 const useMensajes: () => [
