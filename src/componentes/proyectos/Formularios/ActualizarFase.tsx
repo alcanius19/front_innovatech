@@ -1,17 +1,18 @@
 import React, { Fragment, useState } from "react";
-import PaginaProyectos from "../PaginaProyectos";
+//import PaginaProyectos from "../PaginaProyectos";
 
 import { ACTUALIZAR_FASE } from "../graphql/mutations";
 import useAutenticarContexto from "../../ganchos/useAutenticar";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { LIST_PROYECTS } from "../graphql/queries";
-import { useQuery } from "@apollo/client";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
 import { IPROYECTO } from "../../Interfaces/Interfaces_proyecto";
 function ActualizarFase() {
   const [modalEditar, setModalEditar] = React.useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [proyect, setProyect] = useState(null);
   const [updateFase] = useMutation(ACTUALIZAR_FASE);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, loading, error } = useQuery(LIST_PROYECTS);
   if (error) return <span>{error}</span>;
 
@@ -22,6 +23,7 @@ function ActualizarFase() {
     caso === "Editar" && setModalEditar(true);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     // const { objetivo_especifico } = proyectoSelect.objetivo_especifico[0];

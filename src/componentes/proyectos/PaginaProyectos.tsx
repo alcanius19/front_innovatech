@@ -1,13 +1,13 @@
 import * as React from "react";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
-import { useEffect } from "react";
+//import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import ListaProyectos from "./ListaProjectos";
 import { LIST_PROYECTS, PROYECTOS_USUARIO } from "./graphql/queries";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 import ListaProyectosUsuario from "./ListaProyectosUsuario";
-import { type } from "os";
+//import { type } from "os";
 const Administracion = () => {
   const { estadoAutenticacion } = useAutenticarContexto();
   const tipo_usuario = estadoAutenticacion.usuario.tipo_usuario;
@@ -19,6 +19,7 @@ const Administracion = () => {
   console.log(consultaUser.data);
   if (consulta.error) return <span>{consulta.error}</span>;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [alerta, pila, setPila] = useMensajes();
   // useEffect(() => {
   //   consulta.refetch();

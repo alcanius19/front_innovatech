@@ -25,7 +25,7 @@ function CrearProyecto() {
     { value: "terminado", label: "TERMINADO", disabled: true },
   ];
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     console.log(typeof presupuesto);

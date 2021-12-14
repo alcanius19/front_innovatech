@@ -5,9 +5,10 @@ import { CREAR_AVANCE_POR_ID } from "../graphql/mutations";
 
 const CrearAvance = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => alert(JSON.stringify(data));
+  //const onSubmit = (data) => alert(JSON.stringify(data));
   const [crear_Avance] = useMutation(CREAR_AVANCE_POR_ID);
-  const handleCreate = (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleCreate = (data: any) => {
     console.log("crear");
     console.log(data);
 

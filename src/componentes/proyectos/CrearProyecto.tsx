@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import Switch from "react-switch";
 import Select from "react-select";
@@ -20,7 +20,7 @@ function CrearProyecto() {
     { value: "terminado", label: "TERMINADO", disabled: true },
   ];
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     console.log(typeof presupuesto);
