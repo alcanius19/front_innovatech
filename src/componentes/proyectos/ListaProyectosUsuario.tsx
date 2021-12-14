@@ -17,8 +17,6 @@ function ListaProyectosUsuario({
 }) {
   const [alerta, pila, setPila] = useMensajes();
   const [modalEditar, setModalEditar] = React.useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [proyect, setProyect] = useState(null);
   const [updateEstado] = useMutation(UPDATE_PROYECTO_USUARIO);
   const { estadoAutenticacion } = useAutenticarContexto();
   const tipo_usuario = estadoAutenticacion.usuario._id;
@@ -31,13 +29,18 @@ function ListaProyectosUsuario({
   const [proyectoSelect, setProyectoSelect] = React.useState<IPROYECTO>(
     {} as IPROYECTO
   );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [id_proyecto, setIdProyecto] = React.useState("");
+  const [id_usuario, setIdUsuario] = React.useState(tipo_usuario);
+
+  // funciones
   const seleccionarProyecto = (elemento: any, caso: any) => {
     setProyectoSelect(elemento);
     caso === "Editar" && setModalEditar(true);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // const inscripcion = ({ id_proyecto }: { id_proyecto: IPROYECTO[] }) => {
+  //   return "";
+  // };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     // const { objetivo_especifico } = proyectoSelect.objetivo_especifico[0];
@@ -116,15 +119,6 @@ function ListaProyectosUsuario({
                             >
                               Editar
                             </button>
-
-                            <button
-                              className="btn btn-danger m-2"
-                              onClick={() => {
-                                seleccionarProyecto(p, "Editar");
-                              }}
-                            >
-                              Ver
-                            </button>
                           </>
                         );
                       if (
@@ -134,9 +128,8 @@ function ListaProyectosUsuario({
                         return (
                           <button
                             className="btn btn-primary"
-                            // onClick={() => {
-                            //   seleccionarProyecto(p, "Editar");
-                            // }}
+                            value={p._id}
+                            onChange={(evt) => setIdProyecto(evt.target.value)}
                           >
                             Inscribirse
                           </button>

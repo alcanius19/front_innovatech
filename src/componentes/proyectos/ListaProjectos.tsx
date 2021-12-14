@@ -28,7 +28,7 @@ function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
     caso === "Editar" && setModalEditar(true);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // trae los datos al modal
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     // const { objetivo_especifico } = proyectoSelect.objetivo_especifico[0];
