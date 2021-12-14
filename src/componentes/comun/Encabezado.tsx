@@ -10,8 +10,11 @@ import { IPropsFormulario } from "../usuario/Interfaces/Interfaces";
 import FormularioRegistro from "./FormularioRegistro";
 import FormularioLogin from "./FormularioLogin";
 import useAutenticarContexto from "../ganchos/useAutenticar";
+import useMensajes from "../ganchos/useMensajes";
+import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 
 const Encabezado = () => {
+  const [alerta, pila, setPila] = useMensajes();
   const { estadoAutenticacion, salir } = useAutenticarContexto();
   const navegar = useNavigate();
 
@@ -47,7 +50,13 @@ const Encabezado = () => {
     mensaje: "Ingresa al sistema",
     textoOpcion: "",
     cerrarForm: () => {
-      setMostrarLogin(false);
+      setMostrarRegistro(false);
+      alerta({
+        titulo: "Nuevo Usuario.",
+        mensaje:
+          "El usuario fue cargado exitosamente. Por favor ingresa con tu usuario y contraseña.",
+        tiempo: 0,
+      });
     },
     botones: {
       botonLogin: {
@@ -59,6 +68,7 @@ const Encabezado = () => {
   };
   return (
     <>
+      <ContenedorMensajes pila={pila} setPila={setPila} />
       <VentanaModal
         abrir={mostrarLogin}
         manejarCierre={() => {
@@ -72,7 +82,7 @@ const Encabezado = () => {
         manejarCierre={() => {
           setMostrarRegistro(false);
         }}
-        titulo={"Ingresar Nuevo Usuario"}
+        titulo={"Nuevo registro de Usuario"}
         formulario={<FormularioRegistro formulario={propsFormularioRegistro} />}
       />
       {/* {"<!-- Preloader -->"} */}

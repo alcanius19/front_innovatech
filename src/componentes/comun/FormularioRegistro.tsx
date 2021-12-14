@@ -34,13 +34,13 @@ const schema = yup.object({
     .min(1000000, "La identificación debe contener mínimo 8 números.")
     .max(9999999999, "La identificación debe contener máximo 10 números.")
     .typeError("La identificación debe ser un número entre 8 y 10 dígitos."),
-  estado: yup
-    .string()
-    .required("Debe seleccionar un estado.")
-    .oneOf(
-      estados,
-      "El estado debe ser autorizado, no autorizado o pendiente."
-    ),
+  // estado: yup
+  //   .string()
+  //   .required("Debe seleccionar un estado.")
+  //   .oneOf(
+  //     estados,
+  //     "El estado debe ser autorizado, no autorizado o pendiente."
+  //   ),
   tipo_usuario: yup
     .string()
     .required("Debe seleccionar un tipo.")
@@ -123,7 +123,7 @@ const FormularioRegistro = ({
   const [usuario, setUsuario] = useState<IUsuario>({} as IUsuario);
   const [email, setEmail] = useState("");
   const [nombreCompleto, setNombreCompleto] = useState("");
-  const [estado, setEstado] = useState("pendiente");
+  const [estado, setEstado] = useState(EEstados.PENDIENTE);
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [identificacion, setIdentificacion] = useState("");
   const [password, setPassword] = useState("");
@@ -153,9 +153,9 @@ const FormularioRegistro = ({
     }
   }, [tipoUsuario]);
   useEffect(() => {
-    if (estado !== "") {
-      setUsuario({ ...usuario, estado });
-    }
+    // if (estado !== "") {
+    setUsuario({ ...usuario, estado });
+    // }
   }, [estado]);
   useEffect(() => {
     if (fechaIngreso !== "") {
@@ -203,7 +203,7 @@ const FormularioRegistro = ({
   const limpiarFormulario = () => {
     setNombreCompleto("");
     setIdentificacion("");
-    setEstado("pendiente");
+    setEstado(EEstados.PENDIENTE);
     setTipoUsuario("");
     setFechaIngreso("");
     setFechaEgreso("");
@@ -289,7 +289,7 @@ const FormularioRegistro = ({
           value={estado}
           disabled={true}
           {...register("estado")}
-          onChange={(e) => setEstado(e.target.value)}
+          // onChange={(e) => setEstado(e.target.value)}
           size="sm"
         >
           <option>Seleccione el estado</option>

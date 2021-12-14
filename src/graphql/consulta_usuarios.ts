@@ -16,8 +16,8 @@ export const obtenerUsuarios = gql`
 `;
 
 export const crearUsuario = gql`
-  mutation crearUsuario($usuario: UsuarioInput!) {
-    crearUsuario(input: $usuario) {
+  mutation crearUsuario($usuario: UsuarioInput!, $id_usuario: ID) {
+    crearUsuario(input: $usuario, id_usuario: $id_usuario) {
       _id
       nombre_completo
       identificacion

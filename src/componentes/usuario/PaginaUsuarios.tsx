@@ -67,6 +67,11 @@ const Usuarios = () => {
     textoOpcion: "",
     cerrarForm: () => {
       setMostrarNuevoUsuario(false);
+      alerta({
+        titulo: "Nuevo Usuario.",
+        mensaje: "El usuario fue crado exitosamente.",
+        tiempo: 0,
+      });
       consultaUsuarios.refetch();
     },
     botones: {

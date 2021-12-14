@@ -12,7 +12,6 @@ import * as yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(yup);
 import moment from "moment";
-moment.locale("en");
 import { IPropsFormulario, IUsuario } from "../Interfaces/Interfaces";
 import { EEstados, ETipos } from "../../Enumeraciones/Enumeraciones";
 import { crearUsuario } from "../../../graphql/consulta_usuarios";
@@ -161,6 +160,7 @@ const FormularioNuevoUsuario = ({
   }, [estado]);
   useEffect(() => {
     if (fechaIngreso !== "") {
+      moment.locale("en");
       setUsuario({
         ...usuario,
         fecha_ingreso: new Date(moment(fechaIngreso, "YYYY-MM-DD").format("L")),
@@ -169,6 +169,7 @@ const FormularioNuevoUsuario = ({
   }, [fechaIngreso]);
   useEffect(() => {
     if (fechaEgreso !== "") {
+      moment.locale("en");
       setUsuario({
         ...usuario,
         fecha_egreso: new Date(moment(fechaEgreso, "YYYY-MM-DD").format("L")),
@@ -193,7 +194,10 @@ const FormularioNuevoUsuario = ({
       setTimeout(async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _usuario = await crearNuevoUsuario({
-          variables: { usuario: usuario },
+          variables: {
+            usuario: usuario,
+            id_usuario: estadoAutenticacion?.usuario?._id,
+          },
         });
         if (_usuario) {
           formulario.cerrarForm();
@@ -272,11 +276,29 @@ const FormularioNuevoUsuario = ({
         >
           <option>Seleccione el tipo de usuario</option>
           {tipos &&
-            tipos.map((_tipo) => (
-              <option key={v4()} value={_tipo}>
-                {_tipo.trim().replace(/^\w/, (c) => c.toUpperCase())}
-              </option>
-            ))}
+            tipos.map((_tipo) => {
+              if (
+                estadoAutenticacion?.usuario?.tipo_usuario == ETipos.LIDER &&
+                _tipo !== ETipos.ADMINISTRADOR
+              ) {
+                return (
+                  <option key={v4()} value={_tipo}>
+                    {_tipo.trim().replace(/^\w/, (c) => c.toUpperCase())}
+                  </option>
+                );
+              } else if (
+                estadoAutenticacion?.usuario?.tipo_usuario ==
+                ETipos.ADMINISTRADOR
+              ) {
+                return (
+                  <option key={v4()} value={_tipo}>
+                    {_tipo.trim().replace(/^\w/, (c) => c.toUpperCase())}
+                  </option>
+                );
+              } else {
+                null;
+              }
+            })}
         </Form.Select>
         {errors.tipo_usuario?.message ? (
           <Form.Text className="text-danger">
