@@ -16,6 +16,8 @@ import { IPropsFormulario, IUsuario } from "../Interfaces/Interfaces";
 import { EEstados, ETipos } from "../../Enumeraciones/Enumeraciones";
 import { crearUsuario } from "../../../graphql/consulta_usuarios";
 import { useMutation } from "@apollo/client";
+import useMensajes from "../../ganchos/useMensajes";
+import ContenedorMensajes from "../../../utilidades/contenedor_mensajes";
 
 const estados = [
   EEstados.AUTORIZADO,
@@ -107,6 +109,7 @@ const FormularioNuevoUsuario = ({
 }: {
   formulario: IPropsFormulario;
 }) => {
+  const [alerta, pila, setPila] = useMensajes();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
     register,
@@ -232,6 +235,7 @@ const FormularioNuevoUsuario = ({
 
   return (
     <Form className="login" ref={contenedor}>
+      <ContenedorMensajes pila={pila} setPila={setPila} />
       <Form.Group className="mb-1" controlId="formLogin">
         <Form.Label>{formulario.mensaje}</Form.Label>
         {formulario?.textoOpcion && (
