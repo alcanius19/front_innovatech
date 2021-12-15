@@ -47,6 +47,7 @@ const Usuarios = () => {
 
   useEffect(() => {
     if (consultaUsuarios?.data) {
+      console.log(consultaUsuarios.data.usuarios);
       setUsuarios(consultaUsuarios.data.usuarios as IUsuario[]);
     }
   }, [consultaUsuarios.data]);
