@@ -15,6 +15,9 @@ import { IPropsFormulario, IUsuario } from "../Interfaces/Interfaces";
 import { EEstados, ETipos } from "../Enumeraciones/Enumeraciones";
 import { crearUsuario } from "../../graphql/consulta_usuarios";
 import { useMutation } from "@apollo/client";
+import _ from "lodash";
+import useMensajes from "../ganchos/useMensajes";
+import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 
 const estados = [
   EEstados.AUTORIZADO,
@@ -106,6 +109,7 @@ const FormularioRegistro = ({
 }: {
   formulario: IPropsFormulario;
 }) => {
+  const [alerta, pila, setPila] = useMensajes();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
     register,
@@ -195,6 +199,18 @@ const FormularioRegistro = ({
         });
         if (_usuario) {
           formulario.cerrarForm();
+        } else if (_.isEmpty(_usuario)) {
+          alerta({
+            titulo: "Error.",
+            mensaje: "El email ya existe.",
+            tiempo: 0,
+          });
+        } else {
+          alerta({
+            titulo: "Error.",
+            mensaje: "Error desconocido.",
+            tiempo: 0,
+          });
         }
         setCargando(false);
       }, 2000);
@@ -213,6 +229,7 @@ const FormularioRegistro = ({
 
   return (
     <Form className="login" ref={contenedor}>
+      <ContenedorMensajes pila={pila} setPila={setPila} />
       <Form.Group className="mb-1" controlId="formLogin">
         <Form.Label>{formulario.mensaje}</Form.Label>
         {formulario?.textoOpcion && (
