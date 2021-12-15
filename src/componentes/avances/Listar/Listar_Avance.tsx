@@ -14,7 +14,7 @@ const Listar_Avance = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDelete = (_id: string) => {
-    console.log("delete");
+    console.log(_id);
   };
 
   return (
