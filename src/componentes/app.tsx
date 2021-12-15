@@ -65,7 +65,7 @@ const App = () => {
                 element={
                   <>
                     <PaginaInicio />
-                    <PieInicio />
+                    <PieApp />
                   </>
                 }
               />
@@ -191,7 +191,7 @@ const App = () => {
                 element={
                   <>
                     <PaginaNoEncontrada />
-                    <PieInicio />
+                    
                   </>
                 }
               />

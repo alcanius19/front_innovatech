@@ -4,7 +4,7 @@ import "../../css/main.css";
 import "../../css/LineIcons20.css";
 import "../../css/animate.css";
 import "../../css/tiny-slider.css";
-import logo from "../../images/logo/logo.svg";
+import logo from "../../images/logo/logo3.svg";
 import VentanaModal from "../../utilidades/ventana_modal";
 import { IPropsFormulario } from "../usuario/Interfaces/Interfaces";
 import FormularioRegistro from "./FormularioRegistro";
@@ -106,33 +106,9 @@ const Encabezado = () => {
                 <div className="toolbar-social">
                   <ul>
                     <li>
-                      <span className="title">Siguenos en : </span>
+                      <span className="title">Proyecto MISIÓN TIC</span>
                     </li>
-                    <li>
-                      <a href="*">
-                        <i className="lni lni-facebook-original"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="*">
-                        <i className="lni lni-twitter-original"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="*">
-                        <i className="lni lni-instagram"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="*">
-                        <i className="lni lni-linkedin-original"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="*">
-                        <i className="lni lni-google"></i>
-                      </a>
-                    </li>
+                    
                   </ul>
                 </div>
               </div>
