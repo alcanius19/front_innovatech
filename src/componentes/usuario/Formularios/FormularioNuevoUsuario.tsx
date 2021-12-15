@@ -199,9 +199,22 @@ const FormularioNuevoUsuario = ({
             id_usuario: estadoAutenticacion?.usuario?._id,
           },
         });
-        if (_usuario) {
+        if (_usuario.data.crearUsuario._id === "") {
+          alerta({
+            titulo: "Error.",
+            mensaje: "El email ya existe.",
+            tiempo: 0,
+          });
+        } else if (_usuario) {
           formulario.cerrarForm();
+        } else {
+          alerta({
+            titulo: "Error.",
+            mensaje: "Error desconocido.",
+            tiempo: 0,
+          });
         }
+
         setCargando(false);
       }, 2000);
     }

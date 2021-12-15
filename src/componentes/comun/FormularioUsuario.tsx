@@ -255,13 +255,7 @@ const FormularioUsuario = ({
             usuario: usuario,
           },
         });
-        if (usuarioA.data.crearUsuario._id === "") {
-          alerta({
-            titulo: "Error.",
-            mensaje: "El email ya existe.",
-            tiempo: 0,
-          });
-        } else if (usuarioA) {
+        if (usuarioA) {
           formulario.cerrarForm();
         } else {
           alerta({
