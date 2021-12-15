@@ -62,3 +62,17 @@ export const UPDATE_PROYECTO_USUARIO = gql`
     }
   }
 `;
+
+export const INSCRIPCION = gql`
+  mutation Inscripcion($id_proyecto: ID!, $id_usuario: ID!, $id_lider: ID!) {
+    crearInscripcion(
+      input: {
+        id_proyecto: $id_proyecto
+        id_usuario: $id_usuario
+        id_lider: $id_lider
+      }
+    ) {
+      _id
+    }
+  }
+`;

@@ -39,9 +39,7 @@ const Administracion = () => {
           );
         else
           return (
-            <ListaProyectosUsuario
-              proyectsUser={consultaUser.data?.proyecto_id_usuario}
-            />
+            <ListaProyectosUsuario proyectsUser={consulta.data?.proyectos} />
           );
       })()}
     </section>

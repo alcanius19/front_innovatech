@@ -111,7 +111,7 @@ function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
 
         <Modal show={modalEditar}>
           <Modal.Header>
-            <Modal.Title>Editar Producto</Modal.Title>
+            <Modal.Title>Editar Proyecto</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="form-group">
@@ -134,6 +134,7 @@ function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
                 value={proyectoSelect && proyectoSelect.estado}
                 onChange={handleChange}
               />
+
               <br />
             </div>
           </Modal.Body>

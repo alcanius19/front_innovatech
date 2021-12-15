@@ -99,7 +99,7 @@ function App() {
                   </>
                 }
               />
-              <Route
+              {/* <Route
                 path="avances/:action"
                 element={
                   <>
@@ -109,7 +109,7 @@ function App() {
                     <PieApp />
                   </>
                 }
-              />
+              /> */}
               <Route
                 path="/actualizar_fase"
                 element={
@@ -132,7 +132,7 @@ function App() {
                   </>
                 }
               />
-              <Route
+              {/* <Route
                 path="/avances"
                 element={
                   <>
@@ -142,7 +142,7 @@ function App() {
                     <PieApp />
                   </>
                 }
-              />
+              /> */}
               <Route
                 path="/acercade"
                 element={

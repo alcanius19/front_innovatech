@@ -8,4 +8,9 @@ export interface IPROYECTO {
   objetivo_especifico: string;
   presupuesto: any;
   fase_proyecto: string;
+  id_usuario: IUSUARIO[];
+}
+
+export interface IUSUARIO {
+  _id: string;
 }

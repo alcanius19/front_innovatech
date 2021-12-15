@@ -2,14 +2,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { Fragment, useEffect, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
-import { UPDATE_PROYECTO_USUARIO } from "./graphql/mutations";
+import { UPDATE_PROYECTO_USUARIO, INSCRIPCION } from "./graphql/mutations";
 import useAutenticarContexto from "../ganchos/useAutenticar";
-import { useMutation, useQuery } from "@apollo/client";
+
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
-import { IPROYECTO } from "../Interfaces/Interfaces_proyecto";
+import { IPROYECTO, IUSUARIO } from "../Interfaces/Interfaces_proyecto";
 import { PROYECTOS_USUARIO, LISTAR_AVANCES } from "./graphql/queries";
 
 function ListaProyectosUsuario({
@@ -25,24 +26,37 @@ function ListaProyectosUsuario({
   const proyectos = useQuery(PROYECTOS_USUARIO, {
     variables: { id_usuario: tipo_usuario },
   });
+  const [estadoBotton, setEstadoBotton] = React.useState(false);
   const avances = useQuery(LISTAR_AVANCES);
-  console.log(avances.data);
   const [estado, setEstado] = React.useState(false);
   const [proyectoSelect, setProyectoSelect] = React.useState<IPROYECTO>(
     {} as IPROYECTO
   );
   const [id_proyecto, setIdProyecto] = React.useState("");
   const [id_usuario, setIdUsuario] = React.useState(tipo_usuario);
-
+  const [createIns] = useMutation(INSCRIPCION);
   // funciones
   const seleccionarProyecto = (elemento: any, caso: any) => {
     setProyectoSelect(elemento);
     caso === "Editar" && setModalEditar(true);
   };
 
-  // const inscripcion = ({ id_proyecto }: { id_proyecto: IPROYECTO[] }) => {
-  //   return "";
-  // };
+  const crearInscripcion = (e: any, id_lider: string) => {
+    const lider_id = id_lider;
+    createIns({
+      variables: {
+        id_usuario: tipo_usuario,
+        id_proyecto: e,
+        id_lider: lider_id,
+      },
+    }).then((e) => {
+      if (e) {
+        setEstadoBotton(true);
+        document.getElementById("btnEstado").disabled = true;
+      }
+    });
+  };
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     // const { objetivo_especifico } = proyectoSelect.objetivo_especifico[0];
@@ -128,17 +142,29 @@ function ListaProyectosUsuario({
                         estadoAutenticacion.usuario.tipo_usuario == "estudiante"
                       )
                         return (
-                          <button
-                            className="btn btn-primary"
-                            value={p._id}
-                            onChange={(evt: any) =>
-                              setIdProyecto(evt.target.value)
-                            }
-                          >
-                            Inscribirse
-                          </button>
+                          <>
+                            {p.id_usuario.map(
+                              (_idUsuario: IUSUARIO, index: number) => (
+                                <button
+                                  key={index}
+                                  id="btnEstado"
+                                  className="btn btn-primary"
+                                  value={p._id}
+                                  onClick={(evt: any) =>
+                                    crearInscripcion(
+                                      evt.target.value,
+                                      _idUsuario._id
+                                    )
+                                  }
+                                >
+                                  {estadoBotton == true
+                                    ? "Inscrito"
+                                    : "Incribirse"}
+                                </button>
+                              )
+                            )}
+                          </>
                         );
-                      else return <span>Pendiente Activacion..</span>;
                     })()}
                   </Card.Footer>
                 </Card>
