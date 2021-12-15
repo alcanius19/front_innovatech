@@ -20,7 +20,6 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
-import _ from "lodash";
 
 const estados = [
   EEstados.AUTORIZADO,
@@ -256,14 +255,14 @@ const FormularioUsuario = ({
             usuario: usuario,
           },
         });
-        if (usuarioA) {
-          formulario.cerrarForm();
-        } else if (_.isEmpty(usuarioA)) {
+        if (usuarioA.data.crearUsuario._id === "") {
           alerta({
             titulo: "Error.",
             mensaje: "El email ya existe.",
             tiempo: 0,
           });
+        } else if (usuarioA) {
+          formulario.cerrarForm();
         } else {
           alerta({
             titulo: "Error.",

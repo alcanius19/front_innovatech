@@ -15,7 +15,6 @@ import { IPropsFormulario, IUsuario } from "../Interfaces/Interfaces";
 import { EEstados, ETipos } from "../Enumeraciones/Enumeraciones";
 import { crearUsuario } from "../../graphql/consulta_usuarios";
 import { useMutation } from "@apollo/client";
-import _ from "lodash";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 
@@ -197,14 +196,15 @@ const FormularioRegistro = ({
         const _usuario = await crearNuevoUsuario({
           variables: { usuario: usuario },
         });
-        if (_usuario) {
-          formulario.cerrarForm();
-        } else if (_.isEmpty(_usuario)) {
+        console.log(_usuario);
+        if (_usuario.data.crearUsuario._id === "") {
           alerta({
             titulo: "Error.",
             mensaje: "El email ya existe.",
             tiempo: 0,
           });
+        } else if (_usuario) {
+          formulario.cerrarForm();
         } else {
           alerta({
             titulo: "Error.",
