@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "../../css/main.css";
 import "../../css/LineIcons20.css";
 import "../../css/animate.css";
@@ -9,6 +9,7 @@ import VentanaModal from "../../utilidades/ventana_modal";
 import { IPropsFormulario } from "../usuario/Interfaces/Interfaces";
 import FormularioRegistro from "./FormularioRegistro";
 import FormularioLogin from "./FormularioLogin";
+import FormularioUsuario from "./FormularioUsuario";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
@@ -18,6 +19,7 @@ const Encabezado = () => {
   const [alerta, pila, setPila] = useMensajes();
   const { estadoAutenticacion, salir } = useAutenticarContexto();
   const navegar = useNavigate();
+  const ubicacion = useLocation();
 
   const manejarLogout = () => {
     const _salir = typeof salir === "function" ? salir() : null;
@@ -67,6 +69,27 @@ const Encabezado = () => {
       },
     },
   };
+
+  const [mostrarUsuario, setMostrarUsuario] = useState(false);
+  const propsFormularioUsuario: IPropsFormulario = {
+    mensaje: `¡Saludos ${estadoAutenticacion?.usuario?.nombre_completo}!`,
+    textoOpcion: "",
+    cerrarForm: () => {
+      setMostrarUsuario(false);
+      alerta({
+        titulo: "Usuario actualizado.",
+        mensaje: "El usuario fue actualizado exitosamente.",
+        tiempo: 0,
+      });
+    },
+    botones: {
+      botonLogin: {
+        nombre: "Ingresar",
+        claseBoton: "outline-success",
+        click: manejarLogin,
+      },
+    },
+  };
   return (
     <>
       <ContenedorMensajes pila={pila} setPila={setPila} />
@@ -85,6 +108,14 @@ const Encabezado = () => {
         }}
         titulo={"Nuevo registro de Usuario"}
         formulario={<FormularioRegistro formulario={propsFormularioRegistro} />}
+      />
+      <VentanaModal
+        abrir={mostrarUsuario}
+        manejarCierre={() => {
+          setMostrarUsuario(false);
+        }}
+        titulo={"Datos de Usuario"}
+        formulario={<FormularioUsuario formulario={propsFormularioUsuario} />}
       />
       {/* {"<!-- Preloader -->"} */}
       <div className="preloader">
@@ -117,9 +148,15 @@ const Encabezado = () => {
                     {estadoAutenticacion.autenticado ? (
                       <div>
                         <span className={"fw-normal text-dark me-2"}>
-                          Hola
-                          {estadoAutenticacion.usuario &&
-                            " " + estadoAutenticacion.usuario.nombre_completo}
+                          Hola&nbsp;
+                          <NavLink
+                            to={ubicacion.pathname}
+                            onClick={() => setMostrarUsuario(true)}
+                          >
+                            {" "}
+                            {estadoAutenticacion.usuario &&
+                              " " + estadoAutenticacion.usuario.nombre_completo}
+                          </NavLink>
                         </span>
                         <button
                           className={"btn btn-success"}
@@ -137,7 +174,7 @@ const Encabezado = () => {
                           Crea una cuenta
                         </NavLink>
                         <button
-                          className={"btn btn-success"}
+                          className={"btn btn-primary"}
                           onClick={manejarLogin}
                         >
                           Ingresar

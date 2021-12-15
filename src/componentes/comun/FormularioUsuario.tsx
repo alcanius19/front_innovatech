@@ -13,8 +13,11 @@ YupPassword(yup);
 import moment from "moment";
 import { IPropsFormulario, IUsuario } from "../Interfaces/Interfaces";
 import { EEstados, ETipos } from "../Enumeraciones/Enumeraciones";
-import { crearUsuario } from "../../graphql/consulta_usuarios";
-import { useMutation } from "@apollo/client";
+import {
+  obtenerUsuarioPorId,
+  actualizarUsuarioPorId,
+} from "../../graphql/consulta_usuarios";
+import { useMutation, useQuery } from "@apollo/client";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 
@@ -43,10 +46,10 @@ const schema = yup.object({
   //     estados,
   //     "El estado debe ser autorizado, no autorizado o pendiente."
   //   ),
-  tipo_usuario: yup
-    .string()
-    .required("Debe seleccionar un tipo.")
-    .oneOf(tipos, "El tipo debe ser estudiante, líder o administrador."),
+  // tipo_usuario: yup
+  //   .string()
+  //   .required("Debe seleccionar un tipo.")
+  //   .oneOf(tipos, "El tipo debe ser estudiante, líder o administrador."),
   fecha_ingreso: yup
     .date()
     .required("Debe ingresar la fecha de ingreso.")
@@ -61,20 +64,33 @@ const schema = yup.object({
     .required("Debe ingresar un correo."),
   password: yup
     .string()
-    .password()
-    .required("Debe ingresar una contraseña.")
-    .minLowercase(
-      2,
-      "La contraseña debe contener al menos 2 caracteres en minúscula."
-    )
-    .minUppercase(
-      1,
-      "La contraseña debe contener al menos 1 caracter en mayúscula."
-    )
-    .minNumbers(2, "La contraseña debe contener al menos 2 números.")
-    .minSymbols(1, "La contraseña debe contener al menos 1 símbolo.")
-    .min(6, "La contraseña mínimo debe contener 6 caracteres.")
-    .max(14, "La contraseña debe contener máximo 14 caracteres."),
+    .notRequired()
+    .test(
+      "password",
+      "Verifique la contraseña, mínimo 6 y máximo 14 caracteres. Debe contener 2 caracteres en minúscula, 1 en mayúscula, 2 números y 1 símbolo.",
+      function (value) {
+        if (value) {
+          const schema = yup
+            .string()
+            .password()
+            .minLowercase(
+              2,
+              "La contraseña debe contener al menos 2 caracteres en minúscula."
+            )
+            .minUppercase(
+              1,
+              "La contraseña debe contener al menos 1 caracter en mayúscula."
+            )
+            .minNumbers(2, "La contraseña debe contener al menos 2 números.")
+            .minSymbols(1, "La contraseña debe contener al menos 1 símbolo.")
+            .min(6, "La contraseña mínimo debe contener 6 caracteres.")
+            .max(14, "La contraseña debe contener máximo 14 caracteres.");
+          return schema.isValidSync(value);
+        }
+        return true;
+      }
+    ),
+  // .required("Debe ingresar una contraseña.")
 });
 const Backdrop = styled("div")`
   position: absolute;
@@ -103,7 +119,7 @@ const OverlayCargando = styled(Modal)`
 const renderBackdrop = (props: RenderModalBackdropProps) => (
   <Backdrop {...props} />
 );
-const FormularioRegistro = ({
+const FormularioUsuario = ({
   formulario,
 }: {
   formulario: IPropsFormulario;
@@ -114,6 +130,7 @@ const FormularioRegistro = ({
     register,
     trigger,
     formState: { errors },
+    setValue,
   } = useForm<IUsuario>({
     resolver: yupResolver(schema),
   });
@@ -126,19 +143,55 @@ const FormularioRegistro = ({
   const [usuario, setUsuario] = useState<IUsuario>({} as IUsuario);
   const [email, setEmail] = useState("");
   const [nombreCompleto, setNombreCompleto] = useState("");
-  const [estado, setEstado] = useState(EEstados.PENDIENTE);
+  const [estado, setEstado] = useState("");
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [identificacion, setIdentificacion] = useState("");
   const [password, setPassword] = useState("");
   const [fechaIngreso, setFechaIngreso] = useState("");
   const [fechaEgreso, setFechaEgreso] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [crearNuevoUsuario, { loading, error, data }] = useMutation(
-    crearUsuario,
-    {
-      fetchPolicy: "no-cache",
+  const consultaObtenerUsuario = useQuery(obtenerUsuarioPorId, {
+    variables: {
+      _id: estadoAutenticacion?.usuario?._id,
+    },
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: "no-cache",
+  });
+  const [consultaActualizarUsuarioPorId] = useMutation(actualizarUsuarioPorId, {
+    fetchPolicy: "no-cache",
+  });
+
+  useEffect(() => {
+    if (consultaObtenerUsuario?.data) {
+      const _usuario = consultaObtenerUsuario?.data.usuarioPorID as IUsuario;
+      console.log(_usuario);
+      setNombreCompleto(_usuario.nombre_completo);
+      setValue("nombre_completo", _usuario.nombre_completo);
+      setIdentificacion(_usuario.identificacion.toString());
+      setValue("identificacion", _usuario.identificacion);
+      setTipoUsuario(_usuario.tipo_usuario);
+      setValue("tipo_usuario", _usuario.tipo_usuario);
+      setEstado(_usuario.estado as EEstados);
+      setValue("estado", _usuario.estado as EEstados);
+      moment.locale("es");
+      setFechaIngreso(
+        moment(_usuario.fecha_ingreso, moment.ISO_8601).format("YYYY-MM-DD")
+      );
+      setValue(
+        "fecha_ingreso",
+        moment(_usuario.fecha_ingreso, moment.ISO_8601).format("yyy-MM-DD")
+      );
+      setFechaEgreso(
+        moment(_usuario.fecha_egreso, moment.ISO_8601).format("YYYY-MM-DD")
+      );
+      setValue(
+        "fecha_egreso",
+        moment(_usuario.fecha_egreso, moment.ISO_8601).format("yyyy-MM-DD")
+      );
+      setEmail(_usuario.email);
+      setValue("email", _usuario.email);
     }
-  );
+  }, [consultaObtenerUsuario.data]);
 
   useEffect(() => {
     if (nombreCompleto !== "") {
@@ -156,12 +209,13 @@ const FormularioRegistro = ({
     }
   }, [tipoUsuario]);
   useEffect(() => {
-    // if (estado !== "") {
-    setUsuario({ ...usuario, estado });
-    // }
+    if (estado !== "") {
+      setUsuario({ ...usuario, estado });
+    }
   }, [estado]);
   useEffect(() => {
     if (fechaIngreso !== "") {
+      moment.locale("es");
       setUsuario({
         ...usuario,
         fecha_ingreso: new Date(moment(fechaIngreso, "YYYY-MM-DD").format("L")),
@@ -170,6 +224,7 @@ const FormularioRegistro = ({
   }, [fechaIngreso]);
   useEffect(() => {
     if (fechaEgreso !== "") {
+      moment.locale("es");
       setUsuario({
         ...usuario,
         fecha_egreso: new Date(moment(fechaEgreso, "YYYY-MM-DD").format("L")),
@@ -193,17 +248,14 @@ const FormularioRegistro = ({
       setCargando(true);
       setTimeout(async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _usuario = await crearNuevoUsuario({
-          variables: { usuario: usuario },
+        const usuarioA = await consultaActualizarUsuarioPorId({
+          variables: {
+            _id: estadoAutenticacion?.usuario?._id,
+            id_usuario: estadoAutenticacion?.usuario?._id,
+            usuario: usuario,
+          },
         });
-        console.log(_usuario);
-        if (_usuario.data.crearUsuario._id === "") {
-          alerta({
-            titulo: "Error.",
-            mensaje: "El email ya existe.",
-            tiempo: 0,
-          });
-        } else if (_usuario) {
+        if (usuarioA) {
           formulario.cerrarForm();
         } else {
           alerta({
@@ -280,7 +332,7 @@ const FormularioRegistro = ({
         <Form.Select
           aria-label="usuario-tipo"
           value={tipoUsuario}
-          disabled={cargando}
+          disabled={true}
           {...register("tipo_usuario")}
           onChange={(e) => setTipoUsuario(e.target.value)}
           size="sm"
@@ -410,7 +462,7 @@ const FormularioRegistro = ({
           className={"me-2"}
           size="sm"
         >
-          Registrar
+          Actualizar
         </Button>
         <Button
           variant={"outline-primary"}
@@ -436,8 +488,8 @@ const FormularioRegistro = ({
     </Form>
   );
 };
-FormularioRegistro.propTypes = {
+FormularioUsuario.propTypes = {
   formulario: PropTypes.object.isRequired,
 };
 
-export default FormularioRegistro;
+export default FormularioUsuario;

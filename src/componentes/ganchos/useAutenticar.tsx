@@ -108,7 +108,7 @@ const validarUsuarioJWT: (login: IAutServer) => IEstadoAutenticacion = (
       };
     } else if (login && login.token && login.usuario) {
       return {
-        autenticado: true,
+        autenticado: false,
         usuario: {} as IUsuario,
         estado: EAutenticacion.PENDIENTE,
         token: "",
@@ -168,6 +168,7 @@ function useAutenticar(): IAutenticacion {
       const data: Record<string, ILogin> = (await getLogin({
         variables: { email: ausuario?.email, password: ausuario?.password },
       })) as unknown as Record<string, ILogin>;
+
       const _estadoAutenticacion: IEstadoAutenticacion = validarUsuarioJWT(
         data.data.login
       );
