@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import Switch from "react-switch";
 import Select from "react-select";
@@ -18,7 +18,7 @@ function CrearProyecto() {
   const [objetivo_general, setObjGeneral] = useState("");
   const [objetivo_especifico, setObjEspecifico] = useState("");
   const [createProyect] = useMutation(CREAR_PROYECTO);
-
+  const [usuario_id, setIdUsuario] = useState("");
   const options = [
     { value: "iniciado", label: "INICIADO", disabled: true },
     { value: "desarrollo", label: "DESARROLLO", disabled: true },
@@ -35,6 +35,7 @@ function CrearProyecto() {
         presupuesto,
         objetivo_general,
         objetivo_especifico,
+        id_usuario: usuario_id,
       },
     }).then((res) => {
       if (res) {
@@ -56,7 +57,9 @@ function CrearProyecto() {
   const handleChange = () => {
     setestado(estado);
   };
-
+  useEffect(() => {
+    setIdUsuario(estadoAutenticacion.usuario._id);
+  });
   return (
     <div>
       <ContenedorMensajes pila={pila} setPila={setPila} />

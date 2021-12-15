@@ -3,6 +3,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
+import Switch from "react-switch";
 import { ACTUALIZAR_ESTADO } from "./graphql/mutations";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 import { useMutation, useQuery } from "@apollo/client";

@@ -123,7 +123,7 @@ function ListaProyectosUsuario({
                     {(() => {
                       if (
                         p.estado == "activo" &&
-                        estadoAutenticacion.usuario.tipo_usuario == "lider"
+                        estadoAutenticacion.usuario.tipo_usuario == "líder"
                       )
                         return (
                           <>
