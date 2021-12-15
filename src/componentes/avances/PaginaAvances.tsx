@@ -7,10 +7,18 @@ import CrearAvance from "./Crear/CrearAvance";
 import Listar_Avance from "./Listar/Listar_Avance";
 import ActualizarAvance from "./Actualizar/ActualizarAvance";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+import Listar_Avances_por_Id from "./Listar/Listar_Avances_por_Id";
+import { LISTAR_AVANCES_LIDER } from "./graphql/queries";
+import useAutenticarContexto from "../ganchos/useAutenticar";
+import { useQuery } from "@apollo/client";
 
 const Avances = () => {
   const { action } = useParams();
-
+  const { estadoAutenticacion } = useAutenticarContexto();
+  const consultaUser = useQuery(LISTAR_AVANCES_LIDER, {
+    variables: { id_usuario: estadoAutenticacion.usuario._id },
+  });
+  console.log("avancesUsuario", consultaUser.data);
   const [alerta, pila, setPila] = useMensajes();
   useEffect(() => {
     alerta({
@@ -51,6 +59,9 @@ const Avances = () => {
                   <ActualizarAvance />
                 )}
               </div>
+              <Listar_Avances_por_Id
+                proyectsUser={consultaUser.data?.listarAvancesPorTipo_usuario}
+              />
             </div>
           </div>
         </div>
