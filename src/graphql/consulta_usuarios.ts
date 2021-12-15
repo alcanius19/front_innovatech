@@ -15,6 +15,21 @@ export const obtenerUsuarios = gql`
   }
 `;
 
+export const obtenerUsuarioPorId = gql`
+  query obtenerUsuarioPorID($_id: ID!) {
+    usuarioPorID(_id: $_id) {
+      _id
+      nombre_completo
+      identificacion
+      email
+      estado
+      tipo_usuario
+      fecha_egreso
+      fecha_ingreso
+    }
+  }
+`;
+
 export const crearUsuario = gql`
   mutation crearUsuario($usuario: UsuarioInput!, $id_usuario: ID) {
     crearUsuario(input: $usuario, id_usuario: $id_usuario) {
