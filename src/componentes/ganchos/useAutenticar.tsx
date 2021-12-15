@@ -134,16 +134,7 @@ const validarUsuarioJWT: (login: IAutServer) => IEstadoAutenticacion = (
 
 function useAutenticar(): IAutenticacion {
   const [estadoAutenticacion, setEstadoAutenticacion] =
-    useState<IEstadoAutenticacion>({
-      autenticado: true,
-      usuario: {
-        _id: "61714aeba25378969e152f5e", //"619ace06cc23cfe7650c7e3c",
-        nombre_completo: "Temp_lider", // "Temp_admin"
-        tipo_usuario: "líder", // "administrador"
-      } as IUsuario,
-      estado: EAutenticacion.AUTENTICADO,
-      token: "",
-    });
+    useState<IEstadoAutenticacion>({} as IEstadoAutenticacion);
 
   // 619acf48cc23cfe7650c7e3f
   // estudiante
