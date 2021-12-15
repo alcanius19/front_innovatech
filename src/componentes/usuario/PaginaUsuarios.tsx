@@ -228,14 +228,14 @@ const Usuarios = () => {
       <div id="opciones estudiante" className="container-fluid mb-2">
         <button
           className="btn me-2 btn-sm"
-          style={{ backgroundColor: "#0edc8d", color: "white" }}
+          style={{ backgroundColor: "#0e79dc", color: "white" }}
           onClick={handleNuevoUsuario}
         >
           Nuevo Usuario
         </button>
         <button
           className="btn me-2 btn-sm"
-          style={{ backgroundColor: "#0edc8d", color: "white" }}
+          style={{ backgroundColor: "#0e79dc", color: "white" }}
           onClick={handleEliminarUsuarios}
         >
           Eliminar Usuarios
