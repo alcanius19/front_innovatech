@@ -6,6 +6,7 @@ import Select from "react-select";
 import { CREAR_PROYECTO } from "./graphql/mutations";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import useAutenticarContexto from "../ganchos/useAutenticar";
+import { LIST_PROYECTS } from "./graphql/queries";
 function CrearProyecto() {
   const [estado, setestado] = useState(false);
   const [nombre_proyecto, setNombre] = useState("");
@@ -13,7 +14,7 @@ function CrearProyecto() {
   const [objetivo_general, setObjGeneral] = useState("");
   const [objetivo_especifico, setObjEspecifico] = useState("");
   const [usuario_id, setIdUsuario] = useState("");
-  const [createProyect] = useMutation(CREAR_PROYECTO);
+  const [createProyect] = useMutation(CREAR_PROYECTO,{refetchQueries:[{query: LIST_PROYECTS}]});
   const { estadoAutenticacion } = useAutenticarContexto();
 
   const id_usuario = usuario_id;
