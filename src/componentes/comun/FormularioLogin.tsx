@@ -51,7 +51,7 @@ const Backdrop = styled("div")`
   top: 0;
   left: 0;
   bottom: 0;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   opacity: 0.3;
 `;
 
@@ -210,7 +210,7 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
         })} */}
       <div className={"d-flex justify-content-center mt-3"}>
         <Button
-          variant={"outline-success"}
+          variant={"outline-primary"}
           key={v4()}
           onClick={() => manejarLogin(ausuario)}
         >

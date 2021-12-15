@@ -174,7 +174,7 @@ const Encabezado = () => {
                           Crea una cuenta
                         </NavLink>
                         <button
-                          className={"btn btn-success"}
+                          className={"btn btn-primary"}
                           onClick={manejarLogin}
                         >
                           Ingresar
