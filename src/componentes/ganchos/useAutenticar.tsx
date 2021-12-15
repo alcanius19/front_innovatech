@@ -11,7 +11,7 @@ import {
   IAUsuario,
   ILogin,
 } from "../usuario/Interfaces/Interfaces";
-import { EAutenticacion } from "../Enumeraciones/Enumeraciones";
+import { EAutenticacion, EEstados } from "../Enumeraciones/Enumeraciones";
 
 const AutenticarContexto = createContext<IAutenticacion>({} as IAutenticacion);
 
@@ -94,12 +94,24 @@ const validarUsuarioJWT: (login: IAutServer) => IEstadoAutenticacion = (
   login: IAutServer
 ) => {
   try {
-    if (login && login.token && login.usuario) {
+    if (
+      login &&
+      login.token &&
+      login.usuario &&
+      login.usuario.estado !== EEstados.PENDIENTE
+    ) {
       return {
         autenticado: true,
         usuario: login.usuario,
         estado: EAutenticacion.AUTENTICADO,
         token: login.token,
+      };
+    } else if (login && login.token && login.usuario) {
+      return {
+        autenticado: true,
+        usuario: {} as IUsuario,
+        estado: EAutenticacion.PENDIENTE,
+        token: "",
       };
     } else {
       return {

@@ -12,6 +12,7 @@ import FormularioLogin from "./FormularioLogin";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
+import { ETipos } from "../Enumeraciones/Enumeraciones";
 
 const Encabezado = () => {
   const [alerta, pila, setPila] = useMensajes();
@@ -180,8 +181,16 @@ const Encabezado = () => {
             <div className="col-lg-12">
               <div className="nav-inner">
                 <nav className="navbar navbar-expand-lg">
-                  <a className="navbar-brand" href="index.html">
-                    <img src={logo} alt="Logo" />
+                  <a
+                    className="navbar-brand"
+                    href="index.html"
+                    // style={{ backgroundColor: "#0edc8d" }}
+                  >
+                    <img
+                      src={logo}
+                      alt="Logo"
+                      // style={{ height: 85, width: 80 }}
+                    />
                   </a>
                   <button
                     className="navbar-toggler mobile-menu-btn"
@@ -209,26 +218,49 @@ const Encabezado = () => {
                       {estadoAutenticacion.autenticado ? (
                         <>
                           <li className="nav-item">
-                            <NavLink to="/usuarios">Usuarios</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink to="/avances">Avances</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink to="/inscripciones">Inscripciones</NavLink>
+                            {estadoAutenticacion.usuario.tipo_usuario ===
+                              ETipos.ADMINISTRADOR ||
+                            estadoAutenticacion.usuario.tipo_usuario ===
+                              ETipos.LIDER ? (
+                              <NavLink to="/usuarios">Usuarios</NavLink>
+                            ) : null}
                           </li>
                           <li className="nav-item">
                             <NavLink to="/proyectos">Proyectos</NavLink>
                             <ul className="sub-menu collapse" id="submenu-1-4">
                               <li className="nav-item">
-                                <NavLink to="/crear_proyecto">
-                                  crear Proyecto
-                                </NavLink>
+                                {estadoAutenticacion.usuario.tipo_usuario ===
+                                ETipos.LIDER ? (
+                                  <NavLink to="/crear_proyecto">
+                                    crear Proyecto
+                                  </NavLink>
+                                ) : null}
                               </li>
                               <li className="nav-item">
-                                <NavLink to="/actualizar_fase">
-                                  Editar fase
-                                </NavLink>
+                                {estadoAutenticacion.usuario.tipo_usuario ===
+                                ETipos.ADMINISTRADOR ? (
+                                  <NavLink to="/actualizar_fase">
+                                    Editar fase
+                                  </NavLink>
+                                ) : null}
+                              </li>
+                              <li className="nav-item">
+                                {estadoAutenticacion.usuario.tipo_usuario ===
+                                  ETipos.ESTUDIANTE ||
+                                estadoAutenticacion.usuario.tipo_usuario ===
+                                  ETipos.LIDER ? (
+                                  <NavLink to="/avances">Avances</NavLink>
+                                ) : null}
+                              </li>
+                              <li className="nav-item">
+                                {estadoAutenticacion.usuario.tipo_usuario ===
+                                  ETipos.ESTUDIANTE ||
+                                estadoAutenticacion.usuario.tipo_usuario ===
+                                  ETipos.LIDER ? (
+                                  <NavLink to="/inscripciones">
+                                    Inscripciones
+                                  </NavLink>
+                                ) : null}
                               </li>
                             </ul>
                           </li>

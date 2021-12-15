@@ -102,6 +102,9 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
                   case EAutenticacion.NOAUTENTICADO:
                     setInfoLogin("Revise su usuario y su contraseña.");
                     break;
+                  case EAutenticacion.PENDIENTE:
+                    setInfoLogin("Su usuario está esperando autorización.");
+                    break;
                   case EAutenticacion.SINDATOS:
                     setInfoLogin("Datos incorrectos.");
                     break;

@@ -28,6 +28,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { ETipos } from "../componentes/Enumeraciones/Enumeraciones";
 
 library.add(fab);
 library.add(fas);
@@ -36,20 +37,22 @@ library.add(far);
 const RequerirAutenticacion = ({
   children,
   redirectTo,
+  roles,
 }: {
   children: React.ReactElement;
   redirectTo: string;
+  roles: string;
 }) => {
   const { estadoAutenticacion } = useAutenticarContexto();
-
-  return estadoAutenticacion.autenticado ? (
+  return estadoAutenticacion.autenticado &&
+    roles.split(",").includes(estadoAutenticacion.usuario.tipo_usuario) ? (
     children
   ) : (
     <Navigate to={redirectTo} />
   );
 };
 
-function App() {
+const App = () => {
   return (
     <div className="container-fluid px-0 h-100">
       <PersonalTokenProvider>
@@ -70,7 +73,10 @@ function App() {
                 path="/usuarios"
                 element={
                   <>
-                    <RequerirAutenticacion redirectTo="/">
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.ADMINISTRADOR},${ETipos.LIDER}`}
+                    >
                       <PaginaUsuarios />
                     </RequerirAutenticacion>
                     <PieApp />
@@ -81,7 +87,10 @@ function App() {
                 path="/proyectos"
                 element={
                   <>
-                    <RequerirAutenticacion redirectTo="/">
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.ADMINISTRADOR},${ETipos.LIDER},${ETipos.ESTUDIANTE}`}
+                    >
                       <PaginaProyectos />
                     </RequerirAutenticacion>
                     <PieApp />
@@ -92,8 +101,25 @@ function App() {
                 path="/crear_proyecto"
                 element={
                   <>
-                    <RequerirAutenticacion redirectTo="/">
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.LIDER}`}
+                    >
                       <CrearProyecto />
+                    </RequerirAutenticacion>
+                    <PieApp />
+                  </>
+                }
+              />
+              <Route
+                path="/avances"
+                element={
+                  <>
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.ESTUDIANTE},${ETipos.LIDER}`}
+                    >
+                      <PaginaAvances />
                     </RequerirAutenticacion>
                     <PieApp />
                   </>
@@ -103,7 +129,10 @@ function App() {
                 path="avances/:action"
                 element={
                   <>
-                    <RequerirAutenticacion redirectTo="/">
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.ESTUDIANTE},${ETipos.LIDER}`}
+                    >
                       <PaginaAvances />
                     </RequerirAutenticacion>
                     <PieApp />
@@ -114,7 +143,10 @@ function App() {
                 path="/actualizar_fase"
                 element={
                   <>
-                    <RequerirAutenticacion redirectTo="/">
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.ADMINISTRADOR}`}
+                    >
                       <ActualizarFase />
                     </RequerirAutenticacion>
                     <PieApp />
@@ -125,24 +157,17 @@ function App() {
                 path="/inscripciones"
                 element={
                   <>
-                    <RequerirAutenticacion redirectTo="/">
+                    <RequerirAutenticacion
+                      redirectTo="/"
+                      roles={`${ETipos.ESTUDIANTE},${ETipos.LIDER}`}
+                    >
                       <PaginaInscripciones />
                     </RequerirAutenticacion>
                     <PieApp />
                   </>
                 }
               />
-              <Route
-                path="/avances"
-                element={
-                  <>
-                    <RequerirAutenticacion redirectTo="/">
-                      <PaginaAvances />
-                    </RequerirAutenticacion>
-                    <PieApp />
-                  </>
-                }
-              />
+
               <Route
                 path="/acercade"
                 element={
@@ -176,6 +201,6 @@ function App() {
       </PersonalTokenProvider>
     </div>
   );
-}
+};
 
 export default App;

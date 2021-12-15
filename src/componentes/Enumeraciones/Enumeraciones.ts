@@ -3,6 +3,7 @@ export const enum EAutenticacion {
   NOAUTENTICADO,
   ERROR,
   AUTENTICADO,
+  PENDIENTE,
 }
 
 export const enum EEstados {
