@@ -108,7 +108,6 @@ const Encabezado = () => {
                     <li>
                       <span className="title">Proyecto MISIÓN TIC</span>
                     </li>
-                    
                   </ul>
                 </div>
               </div>

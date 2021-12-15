@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Fragment, useEffect } from "react";
 import slider1 from "../../images/hero/slider-bg1.jpg";
 import slider2 from "../../images/hero/slider-bg2.jpg";
@@ -45,22 +46,19 @@ const PaginaInicio = () => {
                 <div className="col-lg-8 offset-lg-2 col-md-12 co-12">
                   <div className="home-slider">
                     <div className="hero-text">
-                      
                       <h1 className="wow fadeInUp" data-wow-delay=".5s">
                         Misión TIC 2021 <br /> Desarrollo Web
                       </h1>
                       <p className="wow fadeInUp" data-wow-delay=".7s">
-                      Sistema de información para la gestión de proyectos de investigación.
-                    
+                        Sistema de información para la gestión de proyectos de
+                        investigación.
                       </p>
-                      
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
         </div>
       </section>
     </>
