@@ -11,12 +11,13 @@ import ListaProyectosUsuario from "./ListaProyectosUsuario";
 const Administracion = () => {
   const { estadoAutenticacion } = useAutenticarContexto();
   const tipo_usuario = estadoAutenticacion.usuario.tipo_usuario;
-  const id = estadoAutenticacion.usuario._id;
+  const id = estadoAutenticacion.usuario?._id;
   const consulta = useQuery(LIST_PROYECTS);
   const consultaUser = useQuery(PROYECTOS_USUARIO, {
     variables: { id_usuario: id },
   });
   console.log(consultaUser.data);
+  console.log(id);
   if (consulta.error) return <span>{consulta.error}</span>;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,7 +32,7 @@ const Administracion = () => {
       {(() => {
         if (tipo_usuario == "administrador")
           return <ListaProyectos proyects={consulta.data?.proyectos} />;
-        if (tipo_usuario == "lider")
+        if (tipo_usuario == "líder")
           return (
             <ListaProyectosUsuario
               proyectsUser={consultaUser.data?.proyecto_id_usuario}

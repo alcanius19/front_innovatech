@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 
 import Switch from "react-switch";
 import Select from "react-select";
 import { CREAR_PROYECTO } from "./graphql/mutations";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
-
+import useAutenticarContexto from "../ganchos/useAutenticar";
 function CrearProyecto() {
   const [estado, setestado] = useState(false);
   const [nombre_proyecto, setNombre] = useState("");
   const [presupuesto, setPresupuesto] = useState(0);
   const [objetivo_general, setObjGeneral] = useState("");
   const [objetivo_especifico, setObjEspecifico] = useState("");
+  const [usuario_id, setIdUsuario] = useState("");
   const [createProyect] = useMutation(CREAR_PROYECTO);
+  const { estadoAutenticacion } = useAutenticarContexto();
 
+  const id_usuario = usuario_id;
   const options = [
     { value: "iniciado", label: "INICIADO", disabled: true },
     { value: "desarrollo", label: "DESARROLLO", disabled: true },
@@ -23,13 +26,13 @@ function CrearProyecto() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(typeof presupuesto);
     createProyect({
       variables: {
         nombre_proyecto,
         presupuesto,
         objetivo_general,
         objetivo_especifico,
+        id_usuario,
       },
     }).then((res) => {
       if (res) console.log(res);
@@ -45,6 +48,8 @@ function CrearProyecto() {
   const handleChange = () => {
     setestado(estado);
   };
+
+  
   return (
     <div>
       <Container className="container-fluid mt-4">

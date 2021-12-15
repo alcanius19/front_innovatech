@@ -6,6 +6,7 @@ export const CREAR_PROYECTO = gql`
     $presupuesto: Int!
     $objetivo_general: String!
     $objetivo_especifico: String!
+    $id_usuario: String
   ) {
     crearProyecto(
       input: {
@@ -13,7 +14,7 @@ export const CREAR_PROYECTO = gql`
         presupuesto: $presupuesto
         objetivo_general: $objetivo_general
         objetivo_especifico: $objetivo_especifico
-        id_usuario: "61714aeba25378969e152f5e"
+        id_usuario: $id_usuario
       }
     ) {
       _id
