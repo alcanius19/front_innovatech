@@ -217,51 +217,54 @@ const Encabezado = () => {
                       </li>
                       {estadoAutenticacion.autenticado ? (
                         <>
-                          <li className="nav-item">
-                            {estadoAutenticacion.usuario.tipo_usuario ===
-                              ETipos.ADMINISTRADOR ||
-                            estadoAutenticacion.usuario.tipo_usuario ===
-                              ETipos.LIDER ? (
+                          {estadoAutenticacion.usuario.tipo_usuario ===
+                            ETipos.ADMINISTRADOR ||
+                          estadoAutenticacion.usuario.tipo_usuario ===
+                            ETipos.LIDER ? (
+                            <li className="nav-item">
                               <NavLink to="/usuarios">Usuarios</NavLink>
-                            ) : null}
-                          </li>
+                            </li>
+                          ) : null}
                           <li className="nav-item">
                             <NavLink to="/proyectos">Proyectos</NavLink>
                             <ul className="sub-menu collapse" id="submenu-1-4">
-                              <li className="nav-item">
-                                {estadoAutenticacion.usuario.tipo_usuario ===
-                                ETipos.LIDER ? (
+                              {estadoAutenticacion.usuario.tipo_usuario ===
+                              ETipos.LIDER ? (
+                                <li className="nav-item">
                                   <NavLink to="/crear_proyecto">
                                     crear Proyecto
                                   </NavLink>
-                                ) : null}
-                              </li>
-                              <li className="nav-item">
-                                {estadoAutenticacion.usuario.tipo_usuario ===
-                                ETipos.ADMINISTRADOR ? (
+                                </li>
+                              ) : null}
+
+                              {estadoAutenticacion.usuario.tipo_usuario ===
+                              ETipos.ADMINISTRADOR ? (
+                                <li className="nav-item">
                                   <NavLink to="/actualizar_fase">
                                     Editar fase
                                   </NavLink>
-                                ) : null}
-                              </li>
-                              <li className="nav-item">
-                                {estadoAutenticacion.usuario.tipo_usuario ===
-                                  ETipos.ESTUDIANTE ||
-                                estadoAutenticacion.usuario.tipo_usuario ===
-                                  ETipos.LIDER ? (
+                                </li>
+                              ) : null}
+
+                              {estadoAutenticacion.usuario.tipo_usuario ===
+                                ETipos.ESTUDIANTE ||
+                              estadoAutenticacion.usuario.tipo_usuario ===
+                                ETipos.LIDER ? (
+                                <li className="nav-item">
                                   <NavLink to="/avances">Avances</NavLink>
-                                ) : null}
-                              </li>
-                              <li className="nav-item">
-                                {estadoAutenticacion.usuario.tipo_usuario ===
-                                  ETipos.ESTUDIANTE ||
-                                estadoAutenticacion.usuario.tipo_usuario ===
-                                  ETipos.LIDER ? (
+                                </li>
+                              ) : null}
+
+                              {estadoAutenticacion.usuario.tipo_usuario ===
+                                ETipos.ESTUDIANTE ||
+                              estadoAutenticacion.usuario.tipo_usuario ===
+                                ETipos.LIDER ? (
+                                <li className="nav-item">
                                   <NavLink to="/inscripciones">
                                     Inscripciones
                                   </NavLink>
-                                ) : null}
-                              </li>
+                                </li>
+                              ) : null}
                             </ul>
                           </li>
                         </>

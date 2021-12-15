@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";

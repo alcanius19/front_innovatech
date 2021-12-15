@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Fragment, useEffect, useState } from "react";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
