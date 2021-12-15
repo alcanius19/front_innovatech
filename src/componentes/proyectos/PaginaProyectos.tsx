@@ -12,7 +12,7 @@ const Administracion = () => {
   const { estadoAutenticacion } = useAutenticarContexto();
   const tipo_usuario = estadoAutenticacion.usuario.tipo_usuario;
   const id = estadoAutenticacion.usuario?._id;
-  const consulta = useQuery(LIST_PROYECTS);
+  const consulta = useQuery(LIST_PROYECTS, { fetchPolicy: "no-cache" });
   const consultaUser = useQuery(PROYECTOS_USUARIO, {
     variables: { id_usuario: id },
   });
@@ -22,9 +22,13 @@ const Administracion = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [alerta, pila, setPila] = useMensajes();
-  // useEffect(() => {
-  //   consulta.refetch();
-  // }, [consulta]);
+  React.useEffect(() => {
+    if (estadoAutenticacion?.usuario?.tipo_usuario === "administrador") {
+      consulta.refetch();
+    } else if (estadoAutenticacion?.usuario?.tipo_usuario === "líder") {
+      consultaUser.refetch();
+    }
+  }, [consulta.data, consultaUser.data]);
   return (
     <section className="area-proyectos">
       <ContenedorMensajes pila={pila} setPila={setPila} />
