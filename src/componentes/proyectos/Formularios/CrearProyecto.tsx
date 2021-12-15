@@ -39,8 +39,8 @@ function CrearProyecto() {
     }).then((res) => {
       if (res) {
         alerta({
-          titulo: "Bienvenido desde Proyectos.",
-          mensaje: "Prueba Mensaje",
+          titulo: "Proyecto.",
+          mensaje: "Creado Exitosamente",
           tiempo: 0,
         });
       }

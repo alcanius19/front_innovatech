@@ -2,7 +2,9 @@ import * as React from "react";
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { useEffect } from "react";
-
+import ListaInscripciones from "./ListaInscripciones";
+import { useMutation, useQuery } from "@apollo/client";
+import { INSCRIPCIONES_LIDER } from "./graphql/queries";
 const Inscripciones = () => {
   const [alerta, pila, setPila] = useMensajes();
   useEffect(() => {
@@ -15,7 +17,7 @@ const Inscripciones = () => {
   return (
     <section className="area-inscripciones">
       <ContenedorMensajes pila={pila} setPila={setPila} />
-      <div>Avances</div>
+      <ListaInscripciones />
     </section>
   );
 };

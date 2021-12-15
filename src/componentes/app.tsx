@@ -124,7 +124,7 @@ const App = () => {
                     <PieApp />
                   </>
                 }
-              />
+              /> */}
               <Route
                 path="avances/:action"
                 element={

@@ -11,6 +11,7 @@ export const LIST_PROYECTS = gql`
       estado
       fase_proyecto
       id_usuario {
+        _id
         nombre_completo
         tipo_usuario
         email

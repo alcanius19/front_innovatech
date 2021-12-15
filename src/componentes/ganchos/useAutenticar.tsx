@@ -138,12 +138,18 @@ function useAutenticar(): IAutenticacion {
       autenticado: true,
       usuario: {
         _id: "61714aeba25378969e152f5e", //"619ace06cc23cfe7650c7e3c",
-        nombre_completo: "Temp_admin", // "Temp_admin"
-        tipo_usuario: "líder", // "administrador"
+        nombre_completo: "Temp_lider", // "Temp_admin"
+        tipo_usuario: "lider", // "administrador"
       } as IUsuario,
       estado: EAutenticacion.AUTENTICADO,
       token: "",
     });
+
+  // 619acf48cc23cfe7650c7e3f
+  // estudiante
+
+  // 61714aeba25378969e152f5e
+  // "lider"
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [getLogin, { loading, error, data }] = useMutation(login, {
