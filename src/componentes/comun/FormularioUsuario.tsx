@@ -50,14 +50,14 @@ const schema = yup.object({
   //   .string()
   //   .required("Debe seleccionar un tipo.")
   //   .oneOf(tipos, "El tipo debe ser estudiante, líder o administrador."),
-  fecha_ingreso: yup
-    .date()
-    .required("Debe ingresar la fecha de ingreso.")
-    .typeError("Debe ingresar una fecha valida."),
-  fecha_egreso: yup
-    .date()
-    .required("Debe ingresar la fecha de egreso.")
-    .typeError("Debe ingresar una fecha valida."),
+  // fecha_ingreso: yup
+  //   .date()
+  //   .required("Debe ingresar la fecha de ingreso.")
+  //   .typeError("Debe ingresar una fecha valida."),
+  // fecha_egreso: yup
+  //   .date()
+  //   .required("Debe ingresar la fecha de egreso.")
+  //   .typeError("Debe ingresar una fecha valida."),
   email: yup
     .string()
     .email("Ingresa un correo valido.")
@@ -177,17 +177,17 @@ const FormularioUsuario = ({
       setFechaIngreso(
         moment(_usuario.fecha_ingreso, moment.ISO_8601).format("YYYY-MM-DD")
       );
-      setValue(
-        "fecha_ingreso",
-        moment(_usuario.fecha_ingreso, moment.ISO_8601).format("yyy-MM-DD")
-      );
+      // setValue(
+      //   "fecha_ingreso",
+      //   moment(_usuario.fecha_ingreso, moment.ISO_8601).format("yyy-MM-DD")
+      // );
       setFechaEgreso(
         moment(_usuario.fecha_egreso, moment.ISO_8601).format("YYYY-MM-DD")
       );
-      setValue(
-        "fecha_egreso",
-        moment(_usuario.fecha_egreso, moment.ISO_8601).format("yyyy-MM-DD")
-      );
+      // setValue(
+      //   "fecha_egreso",
+      //   moment(_usuario.fecha_egreso, moment.ISO_8601).format("yyyy-MM-DD")
+      // );
       setEmail(_usuario.email);
       setValue("email", _usuario.email);
     }
@@ -376,38 +376,40 @@ const FormularioUsuario = ({
         ) : null}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-fecha-ingreso">
-        <Form.Label>Fecha Ingreso:</Form.Label>
+        <Form.Label hidden>Fecha Ingreso:</Form.Label>
         <Form.Control
           type="date"
           placeholder={"Seleccione la fecha..."}
           value={fechaIngreso}
-          readOnly={cargando}
-          {...register("fecha_ingreso")}
-          onChange={(e) => setFechaIngreso(e.target.value)}
+          readOnly
+          hidden
+          // {...register("fecha_ingreso")}
+          // onChange={(e) => setFechaIngreso(e.target.value)}
           size="sm"
         />
-        {errors.fecha_ingreso?.message ? (
+        {/* {errors.fecha_ingreso?.message ? (
           <Form.Text className="text-danger">
             {errors.fecha_ingreso?.message}
           </Form.Text>
-        ) : null}
+        ) : null} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-fecha-egreso">
-        <Form.Label>Fecha Egreso:</Form.Label>
+        <Form.Label hidden>Fecha Egreso:</Form.Label>
         <Form.Control
           type="date"
           placeholder={"Seleccione la fecha..."}
           value={fechaEgreso}
-          readOnly={cargando}
-          {...register("fecha_egreso")}
-          onChange={(e) => setFechaEgreso(e.target.value)}
+          readOnly
+          hidden
+          // {...register("fecha_egreso")}
+          // onChange={(e) => setFechaEgreso(e.target.value)}
           size="sm"
         />
-        {errors.fecha_egreso?.message ? (
+        {/* {errors.fecha_egreso?.message ? (
           <Form.Text className="text-danger">
             {errors.fecha_egreso?.message}
           </Form.Text>
-        ) : null}
+        ) : null} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-email">
         <Form.Label>Correo:</Form.Label>

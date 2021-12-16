@@ -47,14 +47,14 @@ const schema = yup.object({
     .string()
     .required("Debe seleccionar un tipo.")
     .oneOf(tipos, "El tipo debe ser estudiante, líder o administrador."),
-  fecha_ingreso: yup
-    .date()
-    .required("Debe ingresar la fecha de ingreso.")
-    .typeError("Debe ingresar una fecha valida."),
-  fecha_egreso: yup
-    .date()
-    .required("Debe ingresar la fecha de egreso.")
-    .typeError("Debe ingresar una fecha valida."),
+  // fecha_ingreso: yup
+  //   .date()
+  //   .required("Debe ingresar la fecha de ingreso.")
+  //   .typeError("Debe ingresar una fecha valida."),
+  // fecha_egreso: yup
+  //   .date()
+  //   .required("Debe ingresar la fecha de egreso.")
+  //   .typeError("Debe ingresar una fecha valida."),
   email: yup
     .string()
     .email("Ingresa un correo valido.")
@@ -130,8 +130,12 @@ const FormularioRegistro = ({
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [identificacion, setIdentificacion] = useState("");
   const [password, setPassword] = useState("");
-  const [fechaIngreso, setFechaIngreso] = useState("");
-  const [fechaEgreso, setFechaEgreso] = useState("");
+  const [fechaIngreso, setFechaIngreso] = useState(
+    moment(Date.now()).format("YYYY-MM-DD")
+  );
+  const [fechaEgreso, setFechaEgreso] = useState(
+    moment(Date.now()).format("YYYY-MM-DD")
+  );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [crearNuevoUsuario, { loading, error, data }] = useMutation(
     crearUsuario,
@@ -161,21 +165,28 @@ const FormularioRegistro = ({
     // }
   }, [estado]);
   useEffect(() => {
-    if (fechaIngreso !== "") {
-      setUsuario({
-        ...usuario,
+    // if (fechaIngreso !== "") {
+
+    setUsuario((pv: IUsuario) => {
+      return {
+        ...pv,
         fecha_ingreso: new Date(moment(fechaIngreso, "YYYY-MM-DD").format("L")),
-      });
-    }
+      };
+    });
+    // }
   }, [fechaIngreso]);
   useEffect(() => {
-    if (fechaEgreso !== "") {
-      setUsuario({
-        ...usuario,
+    // if (fechaEgreso !== "") {
+
+    setUsuario((pv: IUsuario) => {
+      return {
+        ...pv,
         fecha_egreso: new Date(moment(fechaEgreso, "YYYY-MM-DD").format("L")),
-      });
-    }
+      };
+    });
+    // }
   }, [fechaEgreso]);
+
   useEffect(() => {
     if (email !== "") {
       setUsuario({ ...usuario, email });
@@ -192,6 +203,7 @@ const FormularioRegistro = ({
     if (result) {
       setCargando(true);
       setTimeout(async () => {
+        console.log(usuario);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _usuario = await crearNuevoUsuario({
           variables: { usuario: usuario },
@@ -300,12 +312,13 @@ const FormularioRegistro = ({
         ) : null}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-estado">
-        <Form.Label>Estado:</Form.Label>
+        <Form.Label hidden>Estado:</Form.Label>
         <Form.Select
           aria-label="usuario-estado"
           value={estado}
           disabled={true}
-          {...register("estado")}
+          // {...register("estado")}
+          hidden
           // onChange={(e) => setEstado(e.target.value)}
           size="sm"
         >
@@ -317,45 +330,47 @@ const FormularioRegistro = ({
               </option>
             ))}
         </Form.Select>
-        {errors.estado?.message ? (
+        {/* {errors.estado?.message ? (
           <Form.Text className="text-danger">
             {errors.estado?.message}
           </Form.Text>
-        ) : null}
+        ) : null} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-fecha-ingreso">
-        <Form.Label>Fecha Ingreso:</Form.Label>
+        <Form.Label hidden>Fecha Ingreso:</Form.Label>
         <Form.Control
           type="date"
           placeholder={"Seleccione la fecha..."}
           value={fechaIngreso}
-          readOnly={cargando}
-          {...register("fecha_ingreso")}
-          onChange={(e) => setFechaIngreso(e.target.value)}
+          readOnly
+          hidden
+          // {...register("fecha_ingreso")}
+          // onChange={(e) => setFechaIngreso(e.target.value)}
           size="sm"
         />
-        {errors.fecha_ingreso?.message ? (
+        {/* {errors.fecha_ingreso?.message ? (
           <Form.Text className="text-danger">
             {errors.fecha_ingreso?.message}
           </Form.Text>
-        ) : null}
+        ) : null} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-fecha-egreso">
-        <Form.Label>Fecha Egreso:</Form.Label>
+        <Form.Label hidden>Fecha Egreso:</Form.Label>
         <Form.Control
           type="date"
           placeholder={"Seleccione la fecha..."}
           value={fechaEgreso}
-          readOnly={cargando}
-          {...register("fecha_egreso")}
-          onChange={(e) => setFechaEgreso(e.target.value)}
+          readOnly
+          hidden
+          // {...register("fecha_egreso")}
+          // onChange={(e) => setFechaEgreso(e.target.value)}
           size="sm"
         />
-        {errors.fecha_egreso?.message ? (
+        {/* {errors.fecha_egreso?.message ? (
           <Form.Text className="text-danger">
             {errors.fecha_egreso?.message}
           </Form.Text>
-        ) : null}
+        ) : null} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="usuario-email">
         <Form.Label>Correo:</Form.Label>
