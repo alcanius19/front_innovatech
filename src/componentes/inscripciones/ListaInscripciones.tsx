@@ -48,6 +48,9 @@ function ListaInscripciones() {
     });
     setModalEditar(false);
   };
+  useEffect(() => {
+    consulta.data;
+  });
   return (
     <Fragment>
       <h2>LISTA INSCRIPCIONES</h2>

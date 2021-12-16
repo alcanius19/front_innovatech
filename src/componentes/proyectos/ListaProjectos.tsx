@@ -19,7 +19,7 @@ function ListaProyectos({ proyects }: { proyects: IPROYECTO[] }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [proyect, setProyect] = useState(null);
   const [updateEstado] = useMutation(ACTUALIZAR_ESTADO);
-  const proyectos = useQuery(LIST_PROYECTS);
+  const proyectos = useQuery(LIST_PROYECTS, { fetchPolicy: "no-cache" });
   const [estado, setEstado] = React.useState(false);
   const [proyectoSelect, setProyectoSelect] = React.useState<IPROYECTO>(
     {} as IPROYECTO

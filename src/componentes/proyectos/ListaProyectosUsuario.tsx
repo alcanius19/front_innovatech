@@ -157,9 +157,7 @@ function ListaProyectosUsuario({
                                     )
                                   }
                                 >
-                                  {estadoBotton == true
-                                    ? "Inscrito"
-                                    : "Incribirse"}
+                                  Inscribirse
                                 </button>
                               )
                             )}
