@@ -20,7 +20,7 @@
     "esModuleInterop": true,
     "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["src"],
+  "include": ["src", "__mocks__", "setupTests.js"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
