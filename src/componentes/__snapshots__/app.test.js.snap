@@ -4,57 +4,119 @@ exports[`Mi App debe ejecutar 1`] = `
 <div
   className="container-fluid px-0 h-100"
 >
-  <AutenticancionProveedor>
-    <Encabezado />
-    <Routes>
-      <Route
-        element={<PaginaInicio />}
-        path="/"
-      />
-      <Route
-        element={
-          <RequerirAutenticacion
-            redirectTo="/"
-          >
-            <Avances />
-          </RequerirAutenticacion>
-        }
-        path="/avances"
-      />
-      <Route
-        element={
-          <RequerirAutenticacion
-            redirectTo="/"
-          >
-            <Administracion />
-          </RequerirAutenticacion>
-        }
-        path="/proyectos"
-      />
-      <Route
-        element={
-          <RequerirAutenticacion
-            redirectTo="/"
-          >
-            <Administracion />
-          </RequerirAutenticacion>
-        }
-        path="/estudiantes"
-      />
-      <Route
-        element={<PaginaAcercaDe />}
-        path="/acercade"
-      />
-      <Route
-        element={<PaginaContacto />}
-        path="/contacto"
-      />
-      <Route
-        element={<PaginaNoEncontrada />}
-        path="*"
-      />
-    </Routes>
-    <Pie />
-  </AutenticancionProveedor>
+  <PersonalTokenProvider>
+    <CustomApolloProvider>
+      <AutenticancionProveedor>
+        <Encabezado />
+        <Routes>
+          <Route
+            element={
+              <React.Fragment>
+                <PaginaInicio />
+                <PieApp />
+              </React.Fragment>
+            }
+            path="/"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <RequerirAutenticacion
+                  redirectTo="/"
+                  roles="administrador,líder"
+                >
+                  <Usuarios />
+                </RequerirAutenticacion>
+                <PieApp />
+              </React.Fragment>
+            }
+            path="/usuarios"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <RequerirAutenticacion
+                  redirectTo="/"
+                  roles="administrador,líder,estudiante"
+                >
+                  <Administracion />
+                </RequerirAutenticacion>
+                <PieApp />
+              </React.Fragment>
+            }
+            path="/proyectos"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <RequerirAutenticacion
+                  redirectTo="/"
+                  roles="líder"
+                >
+                  <CrearProyecto />
+                </RequerirAutenticacion>
+                <PieApp />
+              </React.Fragment>
+            }
+            path="/crear_proyecto"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <RequerirAutenticacion
+                  redirectTo="/"
+                  roles="administrador"
+                >
+                  <ActualizarFase />
+                </RequerirAutenticacion>
+                <PieApp />
+              </React.Fragment>
+            }
+            path="/actualizar_fase"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <RequerirAutenticacion
+                  redirectTo="/"
+                  roles="estudiante,líder"
+                >
+                  <Inscripciones />
+                </RequerirAutenticacion>
+                <PieApp />
+              </React.Fragment>
+            }
+            path="/inscripciones"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <PaginaAcercaDe />
+                <PieInicio />
+              </React.Fragment>
+            }
+            path="/acercade"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <PaginaContacto />
+                <PieInicio />
+              </React.Fragment>
+            }
+            path="/contacto"
+          />
+          <Route
+            element={
+              <React.Fragment>
+                <PaginaNoEncontrada />
+              </React.Fragment>
+            }
+            path="*"
+          />
+        </Routes>
+      </AutenticancionProveedor>
+    </CustomApolloProvider>
+  </PersonalTokenProvider>
 </div>
 `;

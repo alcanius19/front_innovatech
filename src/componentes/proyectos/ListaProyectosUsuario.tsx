@@ -52,7 +52,7 @@ function ListaProyectosUsuario({
     }).then((e) => {
       if (e) {
         setEstadoBotton(true);
-        document.getElementById("btnEstado").disabled = true;
+        // document.getElementById("btnEstado").disabled = true;
       }
     });
   };

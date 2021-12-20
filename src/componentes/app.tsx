@@ -111,7 +111,7 @@ const App = () => {
                   </>
                 }
               />
-              <Route
+              {/* <Route
                 path="/avances"
                 element={
                   <>
@@ -124,8 +124,8 @@ const App = () => {
                     <PieApp />
                   </>
                 }
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="avances/:action"
                 element={
                   <>
@@ -138,7 +138,7 @@ const App = () => {
                     <PieApp />
                   </>
                 }
-              />
+              /> */}
               <Route
                 path="/actualizar_fase"
                 element={

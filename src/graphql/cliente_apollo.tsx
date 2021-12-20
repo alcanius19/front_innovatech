@@ -1,10 +1,10 @@
-import fetch from "cross-fetch";
 import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
+import fetch from "cross-fetch";
 //import { useEffect } from "react";
 import { setContext } from "@apollo/client/link/context";
 import React, { useMemo, useRef } from "react";
@@ -13,6 +13,7 @@ import { useToken } from "../componentes/ganchos/useToken";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+  fetch: fetch,
 });
 
 const authLink = () =>
@@ -57,6 +58,7 @@ export default function CustomApolloProvider(
 
     const httpLink = createHttpLink({
       uri: "http://localhost:4000/graphql",
+      fetch: fetch,
     });
 
     return new ApolloClient({
