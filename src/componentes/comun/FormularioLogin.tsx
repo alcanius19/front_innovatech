@@ -4,11 +4,14 @@ import Modal, { RenderModalBackdropProps } from "react-overlays/Modal";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { v4 } from "uuid";
-import useAutenticarContexto, {
+import useAutenticarContexto from "../ganchos/useAutenticar";
+import {
   IAUsuario,
-  EAutenticacion,
   IEstadoAutenticacion,
-} from "../ganchos/useAutenticar";
+  IPropsFormulario,
+} from "../usuario/Interfaces/Interfaces";
+import { EAutenticacion } from "../Enumeraciones/Enumeraciones";
+
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,25 +19,12 @@ import * as yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(yup);
 
-export interface IPropsFormulario {
-  botones: { [index: string]: IPropsBotones };
-  cerrarForm: () => void;
-  mensaje: string;
-  textoOpcion: string;
-}
-
-export interface IPropsBotones {
-  nombre: string;
-  click: (ausuario: IAUsuario) => void;
-  claseBoton: string;
-}
-
 const schema = yup.object({
   email: yup
     .string()
     .email("Ingresa un correo valido.")
     .required("Debes ingresar un correo."),
-  contrasena: yup
+  password: yup
     .string()
     .password()
     .required("Debes ingresar una contraseña.")
@@ -61,7 +51,7 @@ const Backdrop = styled("div")`
   top: 0;
   left: 0;
   bottom: 0;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   opacity: 0.3;
 `;
 
@@ -112,6 +102,9 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
                   case EAutenticacion.NOAUTENTICADO:
                     setInfoLogin("Revise su usuario y su contraseña.");
                     break;
+                  case EAutenticacion.PENDIENTE:
+                    setInfoLogin("Su usuario está esperando autorización.");
+                    break;
                   case EAutenticacion.SINDATOS:
                     setInfoLogin("Datos incorrectos.");
                     break;
@@ -132,7 +125,7 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
   };
 
   const [email, setEmail] = useState("");
-  const [contrasena, setcontrasena] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (email !== "") {
@@ -141,10 +134,10 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
   }, [email]);
 
   useEffect(() => {
-    if (contrasena !== "") {
-      setAusuario({ ...ausuario, contrasena: contrasena });
+    if (password !== "") {
+      setAusuario({ ...ausuario, password: password });
     }
-  }, [contrasena]);
+  }, [password]);
 
   useEffect(() => {
     if (infoLogin !== "") {
@@ -181,19 +174,19 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
           <Form.Text className="text-danger">{errors.email?.message}</Form.Text>
         ) : null}
       </Form.Group>
-      <Form.Group className="mb-3" controlId="ausuario-contrasena">
+      <Form.Group className="mb-3" controlId="ausuario-password">
         <Form.Label>Contraseña:</Form.Label>
         <Form.Control
-          type="text"
+          type="password"
           placeholder={"Ingrese la contraseña..."}
-          value={contrasena}
+          value={password}
           readOnly={cargando}
-          {...register("contrasena")}
-          onChange={(e) => setcontrasena(e.target.value)}
+          {...register("password")}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {errors.contrasena?.message ? (
+        {errors.password?.message ? (
           <Form.Text className="text-danger">
-            {errors.contrasena?.message}
+            {errors.password?.message}
           </Form.Text>
         ) : null}
       </Form.Group>
@@ -217,7 +210,7 @@ const FormularioLogin = ({ formulario }: { formulario: IPropsFormulario }) => {
         })} */}
       <div className={"d-flex justify-content-center mt-3"}>
         <Button
-          variant={"outline-success"}
+          variant={"outline-primary"}
           key={v4()}
           onClick={() => manejarLogin(ausuario)}
         >

@@ -79,18 +79,33 @@ const useExtraer = (
 
   useEffect(() => {
     if (Object.entries(datos.parametros).length > 0) {
-      const timeoutId = setTimeout(() => {
-        const extraer = async () => {
-          const respuesta = await obtenerDatos(datos.ruta, datos.parametros);
-          setDatos((datos) => ({
-            ...datos,
-            parametros: {},
-            items: respuesta,
-          }));
-        };
-        extraer();
-      }, 500);
-      return () => clearTimeout(timeoutId);
+      if (datos.parametros?.inicio) {
+        const timeoutId = setTimeout(() => {
+          const extraer = async () => {
+            const respuesta = await obtenerDatos(datos.ruta, {});
+            setDatos((datos) => ({
+              ...datos,
+              parametros: {},
+              items: respuesta,
+            }));
+          };
+          extraer();
+        }, 500);
+        return () => clearTimeout(timeoutId);
+      } else {
+        const timeoutId = setTimeout(() => {
+          const extraer = async () => {
+            const respuesta = await obtenerDatos(datos.ruta, datos.parametros);
+            setDatos((datos) => ({
+              ...datos,
+              parametros: {},
+              items: respuesta,
+            }));
+          };
+          extraer();
+        }, 500);
+        return () => clearTimeout(timeoutId);
+      }
     }
   }, [datos.parametros]);
 

@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Toast } from "react-bootstrap";
+import { IMensaje } from "../componentes/usuario/Interfaces/Interfaces";
 
-const Mensaje = ({ alerta, onCerrar, orden }) => {
-  const renderInicial = useRef(true);
-  const estaMontadoRef = useRef(null);
-  const [mostrar, setMostrar] = useState(true);
+const Mensaje = ({
+  alerta,
+  onCerrar,
+  orden,
+}: {
+  alerta: IMensaje;
+  onCerrar: () => void;
+  orden: number;
+}) => {
+  const renderInicial = useRef<boolean>(true);
+  const estaMontadoRef = useRef<boolean | null>(null);
+  const [mostrar, setMostrar] = useState<boolean>(true);
 
   useEffect(() => {
     estaMontadoRef.current = true;

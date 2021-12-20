@@ -908,7 +908,7 @@ ol {
   bottom: 0;
   height: 4px;
   width: 80px;
-  background: #0edc8d;
+  background: #0e79dc;
   border-radius: 5px;
   margin-left: -40px;
 }
@@ -949,7 +949,7 @@ ol {
 }
 
 .breadcrumbs .breadcrumb-nav li a:hover {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .breadcrumbs .breadcrumb-nav li a:after {
@@ -991,7 +991,7 @@ ol {
 
 .section-title i {
   font-size: 18px;
-  color: #0edc8d;
+  color: #0e79dc;
   height: 40px;
   width: 40px;
   line-height: 40px;
@@ -1019,7 +1019,7 @@ ol {
   bottom: 0;
   height: 3px;
   width: 50px;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   border-radius: 10px;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -1045,7 +1045,7 @@ ol {
   bottom: -1px;
   height: 2px;
   width: 50px;
-  background: #0edc8d;
+  background: #0e79dc;
   content: "";
 }
 
@@ -1064,7 +1064,7 @@ ol {
   width: 45px;
   height: 45px;
   line-height: 45px;
-  background: #0edc8d;
+  background: #0e79dc;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1120,7 +1120,7 @@ ol {
 .pagination {
   text-align: left;
   margin: 65px 0 0 0;
-  display: block;
+  /* display: block; */
   background-color: transparent;
 }
 
@@ -1155,7 +1155,7 @@ ol {
 
 .pagination .pagination-list li a {
   background: transparent;
-  color: #0edc8d;
+  color: #0e79dc;
   padding: 5px 20px;
   font-weight: 500;
   font-size: 13px;
@@ -1167,7 +1167,7 @@ ol {
 
 .pagination .pagination-list li.active a,
 .pagination .pagination-list li:hover a {
-  background: #0edc8d;
+  background: #0e79dc;
   color: #fff;
   border-color: transparent;
 }
@@ -1207,7 +1207,7 @@ ol {
   top: 0;
   height: 100%;
   width: 0;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   content: "";
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -1228,7 +1228,7 @@ ol {
 }
 
 .button .btn-alt:hover {
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   color: #fff;
 }
 
@@ -1277,7 +1277,7 @@ ol {
   width: 100px;
   height: 100px;
   border-radius: 100%;
-  background: #0edc8d;
+  background: #0e79dc;
   -webkit-animation: preloader-fx 1.6s linear infinite;
   animation: preloader-fx 1.6s linear infinite;
 }
@@ -1353,7 +1353,7 @@ ol {
 .header.style3.navbar-area .header-social {
   display: inline-block;
   margin-left: 100px;
-  float: right;
+  /* float: right; */
 }
 
 .header.style3.navbar-area .header-social ul li {
@@ -1370,7 +1370,7 @@ ol {
 }
 
 .header.style3.navbar-area .header-social ul li a:hover {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 /*===== NAVBAR =====*/
@@ -1402,11 +1402,11 @@ ol {
 }
 
 .header .navbar .navbar-nav .nav-item a.active {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .sticky .navbar .navbar-nav .nav-item a.active {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .header .navbar .navbar-nav .nav-item .sub-menu a.active {
@@ -1424,7 +1424,7 @@ ol {
 /* Topbar */
 .header .toolbar-area {
   padding: 12px 0;
-  background: #0edc8d;
+  background: #0e79dc;
 }
 
 .header .toolbar-area .toolbar-social {
@@ -1481,7 +1481,7 @@ ol {
 }
 
 .header .toolbar-login .btn {
-  color: #0edc8d;
+  color: #0e79dc;
   padding: 6px 20px;
   font-size: 13px;
   background-color: #fff;
@@ -1520,7 +1520,7 @@ ol {
 .navbar-area.sticky {
   position: fixed;
   z-index: 99;
-  background: #0edc8d;
+  background: #0e79dc;
   -webkit-box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
   box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
   -webkit-transition: all 0.3s ease-out 0s;
@@ -1637,7 +1637,7 @@ ol {
 }
 
 .navbar-nav .nav-item:hover a {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .navbar-nav .nav-item a {
@@ -1676,7 +1676,7 @@ ol {
   -webkit-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
   z-index: 5;
-  border: 8px solid #0edc8d;
+  border: 8px solid #0e79dc;
   border-radius: 0;
   border-bottom-color: transparent !important;
   width: auto !important;
@@ -1699,7 +1699,7 @@ ol {
 }
 
 .navbar-nav .nav-item a.active {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -1771,7 +1771,7 @@ ol {
   -webkit-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
   padding: 10px 0;
-  border-bottom: 4px solid #0edc8d;
+  border-bottom: 4px solid #0e79dc;
   border-top: 1px solid rgba(0, 0, 0, 0.03);
 }
 
@@ -1832,7 +1832,7 @@ ol {
 
   .navbar-nav .nav-item .sub-menu .nav-item a:hover {
     background: #fff !important;
-    color: #0edc8d !important;
+    color: #0e79dc !important;
   }
 
   .navbar-nav .nav-item .sub-menu::after {
@@ -1852,7 +1852,7 @@ ol {
 .navbar-nav .nav-item .sub-menu > li.active > a,
 .navbar-nav .nav-item .sub-menu > li:hover > a {
   color: #fff !important;
-  background-color: #0edc8d !important;
+  background-color: #0e79dc !important;
 }
 
 .navbar-nav .nav-item .sub-menu > li > a {
@@ -1871,7 +1871,7 @@ ol {
 
 .navbar-nav .nav-item .sub-menu > li > a:hover {
   background: rgba(0, 0, 0, 0.05);
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -1912,7 +1912,7 @@ ol {
 
   .navbar-nav .nav-item .sub-menu > li.active {
     background: #fff !important;
-    color: #0edc8d !important;
+    color: #0e79dc !important;
   }
 
   .header.style3.navbar-area .header-social {
@@ -1921,7 +1921,7 @@ ol {
 
   .navbar-nav .nav-item .sub-menu > li.active > a,
   .navbar-nav .nav-item .sub-menu > li:hover > a {
-    color: #0edc8d !important;
+    color: #0e79dc !important;
     background-color: #fff !important;
   }
 }
@@ -1990,7 +1990,7 @@ ol {
 }
 
 .header .search-form .btn-outline-success:hover {
-  background: #0edc8d;
+  background: #0e79dc;
   border-color: transparent;
   color: #fff;
 }
@@ -2020,7 +2020,7 @@ ol {
 }
 
 .hero-area.style2 .hero-text h5 {
-  background: #0edc8d;
+  background: #0e79dc;
   color: #fff;
 }
 
@@ -2032,7 +2032,7 @@ ol {
 
 .hero-area.style2 .hero-text h1 span {
   font-weight: 400;
-  border-bottom: 2px solid #0edc8d;
+  border-bottom: 2px solid #0e79dc;
 }
 
 .hero-area.style2 .hero-text p {
@@ -2040,7 +2040,7 @@ ol {
 }
 
 .hero-area.style2 .hero-text .button .btn {
-  background: #0edc8d;
+  background: #0e79dc;
   color: #fff;
 }
 
@@ -2172,7 +2172,7 @@ ol {
   margin-bottom: 15px;
   display: inline-block;
   padding: 12px 22px;
-  background: #0edc8d !important;
+  background: #0e79dc !important;
   text-transform: none;
   border-radius: 30px;
 }
@@ -2186,7 +2186,7 @@ ol {
 }
 
 .hero-area .hero-text h1 span {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .hero-area .hero-text p {
@@ -2210,7 +2210,7 @@ ol {
 }
 
 .hero-area .hero-text .btn.alt-btn {
-  background: #0edc8d;
+  background: #0e79dc;
   color: #fff;
 }
 
@@ -2275,7 +2275,7 @@ ol {
   position: absolute;
   right: 20px;
   top: -30px;
-  background: #0edc8d;
+  background: #0e79dc;
   color: #fff;
   border-radius: 50%;
 }
@@ -2319,7 +2319,7 @@ ol {
 
 .courses .single-course .course-image .price {
   color: #fff;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   font-size: 14px;
   font-weight: 600;
   position: absolute;
@@ -2339,7 +2339,7 @@ ol {
   content: "";
   left: -32px;
   top: 0;
-  border: 18px solid #0edc8d;
+  border: 18px solid #0e79dc;
   border-left-color: transparent;
   height: 10px;
   width: 10px !important;
@@ -2375,7 +2375,7 @@ ol {
 }
 
 .courses .single-course .content h3 a:hover {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .courses .single-course .bottom-content {
@@ -2409,7 +2409,7 @@ ol {
 }
 
 .courses .single-course .bottom-content .tag i {
-  color: #0edc8d;
+  color: #0e79dc;
   display: inline-block;
   margin-right: 4px;
   font-size: 14px;
@@ -2422,7 +2422,7 @@ ol {
 }
 
 .courses .single-course .bottom-content .tag a:hover {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 /*======================================
@@ -2461,7 +2461,7 @@ ol {
   border-radius: 30px 30px 30px 0;
   font-weight: 600;
   color: #fff;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   font-size: 13px;
   margin-bottom: 8px;
 }
@@ -2505,7 +2505,7 @@ ol {
 }
 
 .our-achievement {
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   /*background-image: url("../images/hero/hero1-pattern.png");*/
 }
 
@@ -2559,7 +2559,7 @@ ol {
 }
 
 .our-achievement.overlay::before {
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   opacity: 0.92;
 }
 
@@ -2598,7 +2598,7 @@ ol {
 }
 
 .call-action.style2 {
-  background-color: #0edc8d;
+  background-color: #0e79dc;
 }
 
 .call-action.style2 .call-content {
@@ -2621,7 +2621,7 @@ ol {
 }
 
 .call-action.overlay::before {
-  background: #0edc8d;
+  background: #0e79dc;
   opacity: 0.95;
 }
 
@@ -2688,7 +2688,7 @@ ol {
   display: inline-block;
   margin-bottom: 20px;
   color: #fff;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   border-radius: 50%;
   font-size: 30px;
 }
@@ -2768,7 +2768,7 @@ ol {
   width: auto;
   display: inline-block;
   border: none;
-  background: #0edc8d;
+  background: #0e79dc;
   color: #fff;
   margin-left: 10px;
 }
@@ -2809,7 +2809,7 @@ ol {
 .newsletter-area .subscribe-text .newsletter-social li a:hover {
   border-color: transparent;
   color: #fff;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
 }
 
 /*======================================
@@ -2905,7 +2905,7 @@ ol {
 }
 
 .footer .footer-social ul li a:hover {
-  background-color: #0edc8d;
+  background-color: #0e79dc;
   color: #fff;
   border-color: transparent;
 }
@@ -2950,7 +2950,7 @@ ol {
 }
 
 .footer .recent-blog ul li a:hover {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .footer .recent-blog ul li a img {
@@ -2972,7 +2972,7 @@ ol {
 }
 
 .footer .recent-blog ul li .date i {
-  color: #0edc8d;
+  color: #0e79dc;
   font-size: 13px;
   display: inline-block;
   margin-right: 6px;
@@ -2998,7 +2998,7 @@ ol {
 }
 
 .footer .f-link ul li a:hover {
-  color: #0edc8d;
+  color: #0e79dc;
 }
 
 .footer .footer-newsletter .newsletter-form {
@@ -3020,7 +3020,7 @@ ol {
 
 .footer .footer-bottom {
   padding: 30px 0;
-  background-color: #0edc8d;
+  background-color: #0e79dc;
 }
 
 .footer .footer-bottom .inner {
@@ -3059,7 +3059,7 @@ ol {
 
   .section-title span {
     text-transform: uppercase;
-    color: #0edc8d;
+    color: #0e79dc;
     display: inline-block;
     margin-bottom: 8px;
     font-size: 13px;
@@ -3279,7 +3279,7 @@ ol {
 
   .section-title span {
     text-transform: uppercase;
-    color: #0edc8d;
+    color: #0e79dc;
     display: inline-block;
     margin-bottom: 8px;
     font-size: 12px;

@@ -11,7 +11,7 @@ const VentanaModal = ({
   botones,
 }) => {
   return (
-    <Modal size={"xl"} show={abrir} onHide={manejarCierre}>
+    <Modal dialogClassName="modal-65w" show={abrir} onHide={manejarCierre}>
       <Modal.Header closeButton>
         <Modal.Title>
           <h4>{titulo}</h4>

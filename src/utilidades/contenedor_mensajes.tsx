@@ -1,10 +1,17 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import PropTypes from "prop-types";
 import { ToastContainer } from "react-bootstrap";
 import Mensaje from "./mensaje";
 import { v4 } from "uuid";
+import { IMensaje } from "../componentes/usuario/Interfaces/Interfaces";
 
-const ContenedorMensajes = ({ pila, setPila }) => (
+const ContenedorMensajes = ({
+  pila,
+  setPila,
+}: {
+  pila: IMensaje[];
+  setPila: React.Dispatch<SetStateAction<IMensaje[]>>;
+}) => (
   <ToastContainer
     position="top-end"
     className="d-flex flex-column p-3"
@@ -19,7 +26,7 @@ const ContenedorMensajes = ({ pila, setPila }) => (
               orden={i}
               onCerrar={() => {
                 setPila((mensajes) =>
-                  mensajes.filter((mensaje) => mensaje !== item)
+                  mensajes.filter((_mensaje) => _mensaje !== item)
                 );
               }}
             />

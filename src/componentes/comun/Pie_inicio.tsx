@@ -5,7 +5,7 @@ import logo from "../../images/logo/logo.svg";
 import footer1 from "../../images/blog/footer-news1.jpg";
 import footer2 from "../../images/blog/footer-news2.jpg";
 
-const Pie = () => {
+const PieInicio = () => {
   const descripcion =
     "Somos un equipo que busca innovación en gestión de proyectos.";
   return (
@@ -166,4 +166,4 @@ const Pie = () => {
   );
 };
 
-export default Pie;
+export default PieInicio;
