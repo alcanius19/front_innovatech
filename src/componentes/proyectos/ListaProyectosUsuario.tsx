@@ -52,7 +52,7 @@ function ListaProyectosUsuario({
     }).then((e) => {
       if (e) {
         setEstadoBotton(true);
-        let boton: HTMLButtonElement | null = document.getElementById(
+        const boton: HTMLButtonElement | null = document.getElementById(
           "btnEstado"
         ) as HTMLButtonElement;
         if (boton) {
