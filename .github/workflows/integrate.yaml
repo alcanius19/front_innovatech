@@ -1,10 +1,10 @@
-name: integracion continua 
+name: integracion continua
 
-on: 
+on:
   pull_request:
     branches: [main]
 
-jobs: 
+jobs:
   ci_to_main:
     runs-on: ubuntu-latest
     steps:
@@ -12,6 +12,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: npm ci 
+      - run: npm ci
       - run: npm test
-      - run: npm start
+      - run: npm build
