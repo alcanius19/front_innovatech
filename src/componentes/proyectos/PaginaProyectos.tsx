@@ -8,7 +8,7 @@ import { LIST_PROYECTS, PROYECTOS_USUARIO } from "./graphql/queries";
 import useAutenticarContexto from "../ganchos/useAutenticar";
 import ListaProyectosUsuario from "./ListaProyectosUsuario";
 //import { type } from "os";
-
+//fs
 const Administracion = () => {
   const consulta = useQuery(LIST_PROYECTS, { fetchPolicy: "no-cache" });
   const { estadoAutenticacion } = useAutenticarContexto();
