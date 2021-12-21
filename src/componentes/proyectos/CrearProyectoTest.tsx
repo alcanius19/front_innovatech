@@ -22,7 +22,7 @@ function CrearProyecto() {
     { value: "iniciado", label: "INICIADO", disabled: true },
     { value: "desarrollo", label: "DESARROLLO", disabled: true },
     { value: "terminado", label: "TERMINADO", disabled: true },
-  ];
+ //];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
