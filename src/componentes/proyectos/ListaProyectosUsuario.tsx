@@ -52,7 +52,12 @@ function ListaProyectosUsuario({
     }).then((e) => {
       if (e) {
         setEstadoBotton(true);
-         document.getElementById("btnEstado").disabled = true;
+        let boton: HTMLButtonElement | null = document.getElementById(
+          "btnEstado"
+        ) as HTMLButtonElement;
+        if (boton) {
+          boton.disabled = true;
+        }
       }
     });
   };
