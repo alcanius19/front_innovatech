@@ -8,3 +8,20 @@ export const ACTUALIZAR_ESTADO = gql`
     }
   }
 `;
+export const CREAR_AVANCE = gql`
+  mutation crearAvance(
+    $id_proyecto: ID!
+    $id_usuario: ID!
+    $descripcion: String!
+  ) {
+    crearAvancePorId_Proyecto(
+      input: {
+        id_proyecto: $id_proyecto
+        id_usuario: $id_usuario
+        descripcion: $descripcion
+      }
+    ) {
+      descripcion
+    }
+  }
+`;

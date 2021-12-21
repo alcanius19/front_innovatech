@@ -3,6 +3,7 @@ import { EAutenticacion } from "../Enumeraciones/Enumeraciones";
 
 export interface IAvance {
   _id: string;
+  id_proyecto:string;
   id_usuario: string;
   observacion: Iobservacion[];
   descripcion: string;

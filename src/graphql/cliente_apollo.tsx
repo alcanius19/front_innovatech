@@ -3,6 +3,7 @@ import {
   createHttpLink,
   InMemoryCache,
   ApolloProvider,
+  NormalizedCacheObject,
 } from "@apollo/client";
 import fetch from "cross-fetch";
 //import { useEffect } from "react";
@@ -11,31 +12,31 @@ import React, { useMemo, useRef } from "react";
 
 import { useToken } from "../componentes/ganchos/useToken";
 
-const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
-  fetch: fetch,
-});
+// const httpLink = createHttpLink({
+//   uri: "http://localhost:4000/graphql",
+//   fetch: fetch,
+// });
 
-const authLink = () =>
-  setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
-    const token = localStorage.getItem("token");
-    // return the headers to the context so httpLink can read them
+// const authLink = () =>
+//   setContext((_, { headers }) => {
+//     // get the authentication token from local storage if it exists
+//     const token = localStorage.getItem("token");
+//     // return the headers to the context so httpLink can read them
 
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
-    };
-  });
+//     return {
+//       headers: {
+//         ...headers,
+//         authorization: token ? `Bearer ${token}` : "",
+//       },
+//     };
+//   });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const cliente = () =>
-  new ApolloClient({
-    link: authLink().concat(httpLink),
-    cache: new InMemoryCache(),
-  });
+// const cliente = () =>
+//   new ApolloClient({
+//     link: authLink().concat(httpLink),
+//     cache: new InMemoryCache(),
+//   });
 
 export default function CustomApolloProvider(
   props: JSX.IntrinsicAttributes & { children: React.ReactNode }
@@ -46,7 +47,7 @@ export default function CustomApolloProvider(
   tokenRef.current = token;
 
   // Ensure that the client is only created once.
-  const cliente = useMemo(() => {
+  const cliente: ApolloClient<NormalizedCacheObject> = useMemo(() => {
     const authLink = setContext((_, { headers }) => {
       return {
         headers: {

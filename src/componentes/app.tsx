@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from "react";
+
 import { Route, Routes, Navigate } from "react-router-dom";
-import { ApolloProvider } from "@apollo/client";
 // import cliente from "../graphql/cliente_apollo";
 //gancgos
 import useAutenticarContexto, {
   AutenticancionProveedor,
 } from "./ganchos/useAutenticar";
+
 import { PersonalTokenProvider } from "./ganchos/useToken";
 import CustomApolloProvider from "../graphql/cliente_apollo";
+import {
+  ApolloProvider,
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  useQuery,
+  gql,
+} from "@apollo/client";
 // Común
 import Encabezado from "./comun/Encabezado";
 import PieInicio from "./comun/Pie_inicio";
@@ -16,6 +25,7 @@ import PieApp from "./comun/Pie_app";
 //paginas
 import PaginaInicio from "./inicio/PaginaInicio";
 import PaginaAvances from "./avances/PaginaAvances";
+import InscripcionesUsuario from "./inscripciones/InscripcionesUsuario";
 import PaginaUsuarios from "./usuario/PaginaUsuarios";
 import PaginaProyectos from "./proyectos/PaginaProyectos";
 import CrearProyecto from "./proyectos/Formularios/CrearProyecto";
@@ -119,7 +129,7 @@ const App = () => {
                       redirectTo="/"
                       roles={`${ETipos.ESTUDIANTE},${ETipos.LIDER}`}
                     >
-                      <PaginaAvances />
+                      <InscripcionesUsuario />
                     </RequerirAutenticacion>
                     <PieApp />
                   </>
