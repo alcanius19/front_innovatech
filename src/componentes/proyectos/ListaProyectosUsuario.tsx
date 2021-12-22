@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, CardGroup, Row, Col, Container, Modal } from "react-bootstrap";
 import { UPDATE_PROYECTO_USUARIO, INSCRIPCION } from "./graphql/mutations";
 import useAutenticarContexto from "../ganchos/useAutenticar";
-//
+//hola
 import useMensajes from "../ganchos/useMensajes";
 import ContenedorMensajes from "../../utilidades/contenedor_mensajes";
 import { IPROYECTO, IUSUARIO } from "../Interfaces/Interfaces_proyecto";
