@@ -31,7 +31,7 @@ function InscripcionesUsuario() {
     caso === "Editar" && setModalEditar(true);
   };
   console.group("inscripciones");
-  console.log(inscripcionSelect.id_proyecto);
+  console.log(inscripcionSelect._id);
   console.groupEnd();
   // const handleChange = (e: any) => {
   //   const { name, value } = e.target;
@@ -46,7 +46,7 @@ function InscripcionesUsuario() {
   const crearAvance = () => {
     addAvance({
       variables: {
-        id_proyecto: "61be033938ca0f51de93cb0e",
+        id_proyecto: inscripcionSelect._id,
         id_usuario: estadoAutenticacion.usuario._id,
         descripcion: descripcion1,
       },
@@ -75,7 +75,9 @@ function InscripcionesUsuario() {
                   <Card>
                     <Card.Body>
                       <Card.Text>
-                        <span key={i}>id proyecto: {p.id_proyecto._id}</span>
+                        <span key={i}>
+                          nombre: {p.id_proyecto.nombre_proyecto}
+                        </span>
                       </Card.Text>
                     </Card.Body>
                     <Card.Footer>
@@ -103,11 +105,11 @@ function InscripcionesUsuario() {
 
         <Modal show={modalEditar}>
           <Modal.Header>
-            <Modal.Title>Editar Proyecto</Modal.Title>
+            <Modal.Title>Crear Avance</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="form-group">
-              <label>Descripcion</label>
+              <label>Crear Descripcion</label>
               <input
                 className="form-control"
                 type="text"
@@ -126,7 +128,7 @@ function InscripcionesUsuario() {
               Cancelar
             </button>
             <button className="btn btn-primary" onClick={() => crearAvance()}>
-              Editar
+              Crear
             </button>
           </Modal.Footer>
         </Modal>

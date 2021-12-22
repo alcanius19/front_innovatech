@@ -121,7 +121,7 @@ const App = () => {
                   </>
                 }
               />
-              {/* <Route
+              <Route
                 path="/avances"
                 element={
                   <>
@@ -134,7 +134,7 @@ const App = () => {
                     <PieApp />
                   </>
                 }
-              /> */}
+              />
               {/* <Route
                 path="avances/:action"
                 element={

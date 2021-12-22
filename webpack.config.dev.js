@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 
 process.env.NODE_ENV = "development";
-process.env.API_URL = "https://innovatech2021.herokuapp.com/";
+process.env.API_URL = "https://innovatechfinal.herokuapp.com";
 
 module.exports = {
   mode: "development",

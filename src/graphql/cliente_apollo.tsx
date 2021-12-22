@@ -5,6 +5,7 @@ import {
   ApolloProvider,
   NormalizedCacheObject,
 } from "@apollo/client";
+const SERVIDOR = process.env.API_URL;
 import fetch from "cross-fetch";
 //import { useEffect } from "react";
 import { setContext } from "@apollo/client/link/context";
@@ -58,7 +59,7 @@ export default function CustomApolloProvider(
     });
 
     const httpLink = createHttpLink({
-      uri: "http://localhost:4000/graphql",
+      uri: SERVIDOR + "/graphql" || "http://localhost:4000/graphql",
       fetch: fetch,
     });
 
